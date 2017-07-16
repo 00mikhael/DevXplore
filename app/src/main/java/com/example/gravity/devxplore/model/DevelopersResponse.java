@@ -1,5 +1,7 @@
 package com.example.gravity.devxplore.model;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -9,16 +11,11 @@ import java.util.List;
  */
 
 public class DevelopersResponse {
-    @SerializedName("total_count")
-    private int totalCount;
     @SerializedName("items")
-    private List<Developer> items;
+    private List<Developer> devItems;
 
-    public int getTotalCount() {
-        return totalCount;
-    }
-
-    public List<Developer> getItems() {
-        return items;
+    @NonNull
+    public List<Developer> getDevItems() {
+        return devItems;
     }
 }

@@ -35,9 +35,9 @@ public class DevelopersAdapter extends RecyclerView.Adapter<DevelopersAdapter.De
 
         public DeveloperViewHolder(View view) {
             super(view);
-            devProfileImage = (ImageView) view.findViewById(R.id.dev_profile_image);
-            devUsername = (TextView) view.findViewById(R.id.dev_username);
-            devContextMenu = (ImageView) view.findViewById(R.id.dev_context_menu);
+            devProfileImage = view.findViewById(R.id.dev_profile_image);
+            devUsername = view.findViewById(R.id.dev_username);
+            devContextMenu = view.findViewById(R.id.dev_context_menu);
         }
     }
 
@@ -98,6 +98,9 @@ public class DevelopersAdapter extends RecyclerView.Adapter<DevelopersAdapter.De
 
     @Override
     public int getItemCount() {
+        if (developers.size() > 10) {
+            return 10;
+        }
         return developers.size();
     }
 }

@@ -11,13 +11,13 @@ public class Developer {
     private String login;
     @SerializedName("id")
     private int id;
-    @SerializedName("avatarUrl")
+    @SerializedName("avatar_url")
     private String avatarUrl;
     @SerializedName("url")
     private String url;
-    @SerializedName("eventsUrl")
+    @SerializedName("events_url")
     private String eventsUrl;
-    @SerializedName("reposUrl")
+    @SerializedName("repos_url")
     private String reposUrl;
 
     public String getLogin() {

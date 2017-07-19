@@ -20,14 +20,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.gravity.devxplore.R;
-import com.example.gravity.devxplore.adapter.DevelopersAdapter;
+import com.example.gravity.devxplore.adapter.UsersAdapter;
 import com.example.gravity.devxplore.adapter.RepoAdapter;
-import com.example.gravity.devxplore.model.Developer;
-import com.example.gravity.devxplore.model.DevelopersResponse;
+import com.example.gravity.devxplore.model.User;
+import com.example.gravity.devxplore.model.UserResponse;
 import com.example.gravity.devxplore.model.RepositoriesResponse;
 import com.example.gravity.devxplore.model.Repository;
 import com.example.gravity.devxplore.network.ApiClient;
-import com.example.gravity.devxplore.network.ApiInterface;
+import com.example.gravity.devxplore.network.SearchService;
 import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
 
 import java.util.List;
@@ -84,25 +84,25 @@ public class DevXploreFragment extends Fragment {
         recyclerViewPager.setLayoutManager(layout);
 
 
-        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        SearchService searchService = ApiClient.getClient().create(SearchService.class);
         /*Map<String, String> data = new HashMap<>();
         data.put("location", "lagos");
         data.put("language", "java");*/
-        Call<DevelopersResponse> developersResponseCall = apiService.getDevelopers("location:umuahia+location:abia+location:aba+language:java");
-        developersResponseCall.enqueue(new Callback<DevelopersResponse>() {
+        Call<UserResponse> developersResponseCall = searchService.getUsersResponse("location:umuahia+location:abia+location:aba+language:java");
+        developersResponseCall.enqueue(new Callback<UserResponse>() {
             @Override
-            public void onResponse(@NonNull Call<DevelopersResponse> call, @NonNull Response<DevelopersResponse> response) {
-                List<Developer> developers = response.body().getDevItems();
-                recyclerView.setAdapter(new DevelopersAdapter(getActivity(), developers, R.layout.list_item_dev));
+            public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
+                List<User> users = response.body().getDevItems();
+                recyclerView.setAdapter(new UsersAdapter(getActivity(), users, R.layout.list_item_dev_grid));
             }
 
             @Override
-            public void onFailure(@NonNull Call<DevelopersResponse> call,@NonNull Throwable t) {
+            public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
 
             }
         });
 
-        Call<RepositoriesResponse> repositoriesResponseCall = apiService.getRepositories();
+        Call<RepositoriesResponse> repositoriesResponseCall = searchService.getRepositoriesResponse("language:java+created:>2017-07-06+stars:>200");
         repositoriesResponseCall.enqueue(new Callback<RepositoriesResponse>() {
             @Override
             public void onResponse( @NonNull Call<RepositoriesResponse> call,@NonNull Response<RepositoriesResponse> response) {

@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by gravity on 7/14/17.
  */
 
-public class SingleUser {
+public class UserDetails {
 
     @SerializedName("name")
     private String name;
@@ -15,16 +15,42 @@ public class SingleUser {
     @SerializedName("id")
     private int id;
     @SerializedName("public_repos")
-    private String repos;
+    private int repos;
     @SerializedName("followers")
-    private String followers;
+    private int followers;
     @SerializedName("following")
-    private String following;
+    private int following;
     @SerializedName("public_gists")
-    private String gists;
+    private int gists;
+    @SerializedName("location")
+    private String location;
+    @SerializedName("bio")
+    private String bio;
+    @SerializedName("blog")
+    private String blog;
+    @SerializedName("company")
+    private String company;
+
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public String getBlog() {
+        return blog;
+    }
+
+    public String getCompany() {
+        return company;
+    }
 
     public String getName() {
         return name;
+
     }
 
     public String getLogin() {
@@ -35,19 +61,19 @@ public class SingleUser {
         return id;
     }
 
-    public String getRepos() {
+    public int getRepos() {
         return repos;
     }
 
-    public String getFollowers() {
+    public int getFollowers() {
         return followers;
     }
 
-    public String getFollowing() {
+    public int getFollowing() {
         return following;
     }
 
-    public String getGists() {
+    public int getGists() {
         return gists;
     }
 }

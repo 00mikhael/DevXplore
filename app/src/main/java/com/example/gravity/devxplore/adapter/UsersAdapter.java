@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.gravity.devxplore.R;
-import com.example.gravity.devxplore.model.Developer;
+import com.example.gravity.devxplore.model.User;
 
 import java.util.List;
 
@@ -22,10 +22,10 @@ import java.util.List;
  * Created by gravity on 7/4/17.
  */
 
-public class DevelopersAdapter extends RecyclerView.Adapter<DevelopersAdapter.DeveloperViewHolder> {
+public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.DeveloperViewHolder> {
 
     private Context context;
-    private List<Developer> developers;
+    private List<User> users;
     private int rowLayout;
 
     public static class DeveloperViewHolder extends RecyclerView.ViewHolder {
@@ -41,23 +41,23 @@ public class DevelopersAdapter extends RecyclerView.Adapter<DevelopersAdapter.De
         }
     }
 
-    public DevelopersAdapter(Context context, List<Developer> developers, int rowLayout) {
+    public UsersAdapter(Context context, List<User> users, int rowLayout) {
         this.context = context;
-        this.developers = developers;
+        this.users = users;
         this.rowLayout = rowLayout;
     }
 
     @Override
-    public DevelopersAdapter.DeveloperViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public UsersAdapter.DeveloperViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
         return new DeveloperViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final DeveloperViewHolder holder, final int position) {
-        holder.devUsername.setText(developers.get(position).getLogin());
+        holder.devUsername.setText(users.get(position).getLogin());
         Glide.with(context)
-                .load(developers.get(position).getAvatarUrl())
+                .load(users.get(position).getAvatarUrl())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .crossFade()
                 .thumbnail(0.5f)
@@ -98,9 +98,9 @@ public class DevelopersAdapter extends RecyclerView.Adapter<DevelopersAdapter.De
 
     @Override
     public int getItemCount() {
-        if (developers.size() > 10) {
+        if (users.size() > 10) {
             return 10;
         }
-        return developers.size();
+        return users.size();
     }
 }

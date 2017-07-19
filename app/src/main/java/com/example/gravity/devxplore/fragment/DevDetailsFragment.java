@@ -16,9 +16,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.gravity.devxplore.R;
-import com.example.gravity.devxplore.model.SingleUser;
+import com.example.gravity.devxplore.model.UserDetails;
 import com.example.gravity.devxplore.network.ApiClient;
-import com.example.gravity.devxplore.network.ApiInterface;
+import com.example.gravity.devxplore.network.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,20 +82,20 @@ public class DevDetailsFragment extends Fragment implements AppBarLayout.OnOffse
         toolbar.inflateMenu(R.menu.main);
         startAlphaAnimation(title, 0, View.INVISIBLE);
 
-        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        UserService userService = ApiClient.getClient().create(UserService.class);
         /*Map<String, String> data = new HashMap<>();
         data.put("location", "lagos");
         data.put("language", "java");*/
-        Call<SingleUser> singleUserCall = apiService.getUser();
-        singleUserCall.enqueue(new Callback<SingleUser>() {
+        Call<UserDetails> userDetailsCall = userService.getUser("zirogravity");
+        userDetailsCall.enqueue(new Callback<UserDetails>() {
             @Override
-            public void onResponse(Call<SingleUser> call, Response<SingleUser> response) {
-                SingleUser user = response.body();
-                username.setText(user.getLogin());
+            public void onResponse(Call<UserDetails> call, Response<UserDetails> response) {
+                UserDetails userDetails = response.body();
+                username.setText(userDetails.getLogin());
             }
 
             @Override
-            public void onFailure(Call<SingleUser> call, Throwable t) {
+            public void onFailure(Call<UserDetails> call, Throwable t) {
 
             }
         });

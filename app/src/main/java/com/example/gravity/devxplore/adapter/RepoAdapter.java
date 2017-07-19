@@ -33,7 +33,7 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.ViewHolder>{
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View v = inflater.inflate(R.layout.list_item_repo, parent, false);
+        View v = inflater.inflate(R.layout.card_pager_item, parent, false);
         return new ViewHolder(v);
     }
 

@@ -10,12 +10,12 @@ import java.util.List;
  * Created by gravity on 7/4/17.
  */
 
-public class DevelopersResponse {
+public class UserResponse {
     @SerializedName("items")
-    private List<Developer> devItems;
+    private List<User> devItems;
 
     @NonNull
-    public List<Developer> getDevItems() {
+    public List<User> getDevItems() {
         return devItems;
     }
 }

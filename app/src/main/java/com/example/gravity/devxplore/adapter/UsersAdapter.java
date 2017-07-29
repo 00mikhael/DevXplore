@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.gravity.devxplore.R;
-import com.example.gravity.devxplore.model.User;
+import com.example.gravity.devxplore.data.model.User;
 
 import java.util.List;
 

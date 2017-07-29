@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.gravity.devxplore.R;
-import com.example.gravity.devxplore.model.Repository;
+import com.example.gravity.devxplore.data.model.Repository;
 
 import java.util.List;
 

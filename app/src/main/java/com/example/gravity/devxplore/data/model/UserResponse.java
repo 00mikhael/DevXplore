@@ -12,10 +12,10 @@ import java.util.List;
 
 public class UserResponse {
     @SerializedName("items")
-    private List<User> devItems;
+    private List<User> mDevItems;
 
     @NonNull
     public List<User> getDevItems() {
-        return devItems;
+        return mDevItems;
     }
 }

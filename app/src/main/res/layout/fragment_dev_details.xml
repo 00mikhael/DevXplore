@@ -21,7 +21,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/bridge_1"
                 android:tint="#11000000"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.9" />
@@ -229,7 +228,7 @@
                 android:gravity="center_vertical"
                 android:text="Name"
                 android:textColor="@android:color/white"
-                android:textSize="20sp" />
+                android:textSize="20sp"/>
 
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
@@ -242,7 +241,7 @@
         android:src="@drawable/circle"
         app:finalHeight="@dimen/image_final_width"
         app:finalYPosition="2dp"
-        app:layout_behavior="com.example.gravity.devxplore.Other.AvatarImageBehavior"
+        app:layout_behavior="com.example.gravity.devxplore.util.AvatarImageBehavior"
         app:startHeight="2dp"
         app:startToolbarPosition="2dp"
         app:startXPosition="2dp" />

@@ -5,24 +5,18 @@
         android:id="@+id/menu_home"
         android:enabled="true"
         android:title="Home"
-        android:icon="@drawable/user"
+        android:icon="@drawable/ic_explore"
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/menu_repo"
+        android:id="@+id/menu_fav"
         android:enabled="true"
-        android:title="repo"
-        android:icon="@drawable/user"
-        app:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/menu_stats"
-        android:enabled="true"
-        android:title="stats"
-        android:icon="@drawable/user"
+        android:title="favorites"
+        android:icon="@drawable/ic_favorite"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/menu_profile"
         android:enabled="true"
         android:title="profile"
-        android:icon="@drawable/user"
+        android:icon="@drawable/ic_user"
         app:showAsAction="ifRoom"/>
 </menu>

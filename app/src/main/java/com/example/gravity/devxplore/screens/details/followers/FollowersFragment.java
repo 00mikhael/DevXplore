@@ -76,7 +76,7 @@ public class FollowersFragment extends Fragment implements DetailsContract.Detai
     @Override
     public void showFollowers(List<User> followers) {
         this.mFollowers = followers;
-        mRecyclerView.setAdapter(new UsersAdapter(getActivity(), followers, R.layout.list_item_dev_linear, this));
+        mRecyclerView.setAdapter(new UsersAdapter(getActivity(), followers, R.layout.list_item_user_linear, this));
     }
 
     @Override

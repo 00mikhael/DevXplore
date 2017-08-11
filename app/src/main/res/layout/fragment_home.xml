@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:scrollbars="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:listitem="@layout/list_item_dev_grid" />
+        tools:listitem="@layout/list_item_user_grid" />
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/home_app_bar"

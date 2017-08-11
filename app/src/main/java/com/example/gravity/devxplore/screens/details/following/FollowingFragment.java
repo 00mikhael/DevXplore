@@ -76,7 +76,7 @@ public class FollowingFragment extends Fragment implements DetailsContract.Detai
     @Override
     public void showFollowing(List<User> following) {
         this.mFollowing = following;
-        mRecyclerView.setAdapter(new UsersAdapter(getActivity(), following, R.layout.list_item_dev_linear, this));
+        mRecyclerView.setAdapter(new UsersAdapter(getActivity(), following, R.layout.list_item_user_linear, this));
     }
 
     @Override

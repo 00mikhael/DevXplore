@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-<<<<<<< HEAD
-=======
       <module fileurl="file://$PROJECT_DIR$/DevXplore1.iml" filepath="$PROJECT_DIR$/DevXplore1.iml" />
->>>>>>> d15be5c51af83c3ef3cd35e7ffe0dfe0e366ead0
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

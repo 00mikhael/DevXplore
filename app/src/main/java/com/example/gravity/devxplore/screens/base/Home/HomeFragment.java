@@ -102,7 +102,7 @@ public class HomeFragment extends Fragment implements HomeContract.XploreView, V
     @Override
     public void showUsers(List<User> users) {
         this.mUsers = users;
-        UsersAdapter adapter = new UsersAdapter(getActivity(), users, R.layout.list_item_dev_grid, this);
+        UsersAdapter adapter = new UsersAdapter(getActivity(), users, R.layout.list_item_user_grid, this);
         mRecyclerView.setAdapter(adapter);
     }
 

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="vertical"
-        tools:listitem="@layout/list_item_dev_linear" />
+        tools:listitem="@layout/list_item_user_linear" />
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/favourites_app_bar"

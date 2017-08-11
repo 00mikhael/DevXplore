@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="primary">#404448</color>
+    <color name="colorPrimary">#24292E</color>
+    <color name="colorPrimaryDark">#24292E</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="background">#303030</color>
+    <color name="blur">#90000000</color>
+    <color name="textColorGray">#C8CACB</color>
+    <color name="textColorGray1">#C8CACB</color>
+    <color name="textColorGrayDark">#A7A9AB</color>
+    <color name="red_400" type="color">#e84e40</color>
+    <color name="pink_400" type="color">#ec407a</color>
+    <color name="purple_400" type="color">#ab47bc</color>
+    <color name="deep_purple_400" type="color">#7e57c2</color>
+    <color name="indigo_400" type="color">#5c6bc0</color>
+    <color name="blue_400" type="color">#738ffe</color>
+    <color name="light_blue_400" type="color">#29b6f6</color>
+    <color name="cyan_400" type="color">#26c6da</color>
+    <color name="teal_400" type="color">#26a69a</color>
+    <color name="green_400" type="color">#2baf2b</color>
+    <color name="light_green_400" type="color">#9ccc65</color>
+    <color name="lime_400" type="color">#d4e157</color>
+    <color name="yellow_400" type="color">#ffee58</color>
+    <color name="orange_400" type="color">#ffa726</color>
+    <color name="deep_orange_400" type="color">#ff7043</color>
+    <color name="brown_400" type="color">#8d6e63</color>
+    <color name="grey_400" type="color">#bdbdbd</color>
+    <color name="blue_grey_400" type="color">#78909c</color>
+    <color name="red_500" type="color">#e51c23</color>
+    <color name="pink_500" type="color">#e91e63</color>
+    <color name="purple_500" type="color">#9c27b0</color>
+    <color name="deep_purple_500" type="color">#673ab7</color>
+    <color name="indigo_500" type="color">#3f51b5</color>
+    <color name="blue_500" type="color">#5677fc</color>
+    <color name="light_blue_500" type="color">#03a9f4</color>
+    <color name="cyan_500" type="color">#00bcd4</color>
+    <color name="teal_500" type="color">#009688</color>
+    <color name="green_500" type="color">#259b24</color>
+    <color name="light_green_500" type="color">#8bc34a</color>
+    <color name="lime_500" type="color">#cddc39</color>
+    <color name="yellow_500" type="color">#ffeb3b</color>
+    <color name="orange_500" type="color">#ff9800</color>
+    <color name="deep_orange_500" type="color">#ff5722</color>
+    <color name="brown_500" type="color">#795548</color>
+    <color name="grey_500" type="color">#9e9e9e</color>
+    <color name="blue_grey_500" type="color">#607d8b</color>
 </resources>

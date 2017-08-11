@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">DevXplore</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+    <string-array name="languages">
+    </string-array>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula sem a malesuada rhoncus. </string>
 </resources>

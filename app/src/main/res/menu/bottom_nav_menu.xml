@@ -2,27 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_home"
+        android:id="@+id/nav_home"
         android:enabled="true"
+        android:orderInCategory="100"
         android:title="Home"
-        android:icon="@drawable/user"
+        android:icon="@drawable/ic_explore"
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/menu_repo"
+        android:id="@+id/nav_fav"
         android:enabled="true"
-        android:title="repo"
-        android:icon="@drawable/user"
+        android:orderInCategory="200"
+        android:title="favorites"
+        android:icon="@drawable/ic_heart"
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/menu_stats"
+        android:id="@+id/nav_stats"
         android:enabled="true"
+        android:orderInCategory="300"
         android:title="stats"
-        android:icon="@drawable/user"
-        app:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/menu_profile"
-        android:enabled="true"
-        android:title="profile"
-        android:icon="@drawable/user"
+        android:icon="@drawable/ic_slack"
         app:showAsAction="ifRoom"/>
 </menu>

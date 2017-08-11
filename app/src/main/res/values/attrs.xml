@@ -7,4 +7,11 @@
         <attr name="startHeight" format="dimension"/>
         <attr name="finalHeight" format="dimension"/>
     </declare-styleable>
+
+    <attr name="ripple_color" format="color"/>
+    <attr name="card_background" format="color"/>
+    <attr name="sc_corner_radius" format="dimension" />
+    <attr name="sc_border_width" format="dimension" />
+    <attr name="sc_tint_color" format="color" />
+    <attr name="sc_checked_text_color" format="color" />
 </resources>

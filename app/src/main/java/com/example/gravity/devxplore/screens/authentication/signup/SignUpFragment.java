@@ -1,6 +1,7 @@
 package com.example.gravity.devxplore.screens.authentication.signup;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +15,14 @@ import com.example.gravity.devxplore.R;
 
 public class SignUpFragment extends Fragment {
 
+    @NonNull
     public static SignUpFragment newInstance() {
         SignUpFragment signUpFragment = new SignUpFragment();
         return signUpFragment;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_signup, container, false);
         return view;

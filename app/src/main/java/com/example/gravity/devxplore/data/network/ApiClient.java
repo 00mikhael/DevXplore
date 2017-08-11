@@ -1,5 +1,7 @@
 package com.example.gravity.devxplore.data.network;
 
+import android.support.annotation.Nullable;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -9,9 +11,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    public static final String BASE_URL = "https://api.github.com";
+    private static final String BASE_URL = "https://api.github.com";
+    @Nullable
     private static Retrofit retrofit = null;
 
+    @Nullable
     public static Retrofit getClient() {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()

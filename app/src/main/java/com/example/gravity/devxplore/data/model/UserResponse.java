@@ -10,12 +10,17 @@ import java.util.List;
  * Created by gravity on 7/4/17.
  */
 
+@SuppressWarnings("ALL")
 public class UserResponse {
     @SerializedName("items")
-    private List<User> mDevItems;
+    private final List<User> mDevItems;
 
     @NonNull
     public List<User> getDevItems() {
         return mDevItems;
+    }
+
+    public UserResponse(List<User> mDevItems) {
+        this.mDevItems = mDevItems;
     }
 }

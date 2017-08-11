@@ -4,6 +4,7 @@
     <color name="colorPrimary">#24292E</color>
     <color name="colorPrimaryDark">#24292E</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="background">#303030</color>
     <color name="blur">#90000000</color>
     <color name="textColorGray">#C8CACB</color>
     <color name="textColorGray1">#C8CACB</color>

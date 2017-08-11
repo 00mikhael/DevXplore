@@ -9,25 +9,25 @@ import com.google.gson.annotations.SerializedName;
 public class Repository {
 
     @SerializedName("name")
-    private String repoName;
+    private final String repoName;
     @SerializedName("full_name")
-    private String repoFullName;
+    private final String repoFullName;
     @SerializedName("description")
-    private String description;
+    private final String description;
     @SerializedName("language")
-    private String language;
+    private final String language;
     @SerializedName("owner")
-    private Owner owner;
+    private final Owner owner;
     @SerializedName("updated_at")
-    private String repoUpdatedAt;
+    private final String repoUpdatedAt;
     @SerializedName("stargazers_count")
-    private int repoStars;
+    private final int repoStars;
     @SerializedName("watchers_count")
-    private int repoWatchers;
+    private final int repoWatchers;
     @SerializedName("forks_count")
-    private int repoForks;
+    private final int repoForks;
     @SerializedName("html_url")
-    private int repoUrl;
+    private final String  repoUrl;
 
     public String getRepoName() {
         return repoName;
@@ -49,7 +49,7 @@ public class Repository {
         return repoForks;
     }
 
-    public int getRepoUrl() {
+    public String  getRepoUrl() {
         return repoUrl;
     }
 
@@ -71,10 +71,10 @@ public class Repository {
 
     public class Owner {
         @SerializedName("login")
-        private String login;
+        private final String login;
 
         @SerializedName("avatar_url")
-        private String avatarUrl;
+        private final String avatarUrl;
 
         public String getLogin() {
             return login;
@@ -83,10 +83,15 @@ public class Repository {
         public String getAvatarUrl() {
             return avatarUrl;
         }
+
+        public Owner(String login, String avatarUrl) {
+            this.login = login;
+            this.avatarUrl = avatarUrl;
+        }
     }
 
     public Repository(String repoName, String repoFullName, String description, String language,
-                      Owner owner, String repoUpdatedAt, int repoStars, int repoWatchers, int repoForks, int repoUrl) {
+                      Owner owner, String repoUpdatedAt, int repoStars, int repoWatchers, int repoForks, String repoUrl) {
         this.repoName = repoName;
         this.repoFullName = repoFullName;
         this.description = description;

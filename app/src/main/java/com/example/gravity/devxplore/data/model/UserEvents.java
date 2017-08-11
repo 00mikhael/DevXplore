@@ -9,22 +9,29 @@ import com.google.gson.annotations.SerializedName;
 public class UserEvents {
 
     @SerializedName("id")
-    private int eventId;
+    private final int eventId;
 
     @SerializedName("type")
-    private String eventType;
+    private final String eventType;
 
     @SerializedName("actor")
-    private Actor eventActor;
+    private final Actor eventActor;
 
     @SerializedName("repo")
-    private Repo eventRepo;
+    private final Repo eventRepo;
 
     @SerializedName("payload")
-    private PayLoad eventPayload;
+    private final PayLoad eventPayload;
 
     @SerializedName("created_at")
-    private String eventTime;
+    private final String eventTime;
+
+    @SerializedName("public")
+    private boolean isPublic;
+
+    public boolean isPublic() {
+        return isPublic;
+    }
 
     public String getEventTime() {
         return eventTime;
@@ -52,11 +59,11 @@ public class UserEvents {
 
     public class Actor {
         @SerializedName("login")
-        private String actorLogin;
+        private final String actorLogin;
         @SerializedName("url")
-        private String actorUrl;
+        private final String actorUrl;
         @SerializedName("avartar_url")
-        private String actorAvatarUrl;
+        private final String actorAvatarUrl;
 
         public String getActorAvatarUrl() {
             return actorAvatarUrl;
@@ -69,14 +76,21 @@ public class UserEvents {
         public String getActorLogin() {
             return actorLogin;
         }
+
+
+        public Actor(String actorLogin, String actorUrl, String actorAvatarUrl) {
+            this.actorLogin = actorLogin;
+            this.actorUrl = actorUrl;
+            this.actorAvatarUrl = actorAvatarUrl;
+        }
     }
 
     public class Repo {
         @SerializedName("name")
-        private String eventRepoName;
+        private final String eventRepoName;
 
         @SerializedName("url")
-        private String eventRepoUrl;
+        private final String eventRepoUrl;
 
         public String getEventRepoName() {
             return eventRepoName;
@@ -84,30 +98,42 @@ public class UserEvents {
         public String getEventRepoUrl() {
             return eventRepoUrl;
         }
+
+
+        public Repo(String eventRepoName, String eventRepoUrl) {
+            this.eventRepoName = eventRepoName;
+            this.eventRepoUrl = eventRepoUrl;
+        }
     }
 
     public class PayLoad {
         @SerializedName("action")
-        private String eventAction;
+        private final String eventAction;
         @SerializedName("forkee")
-        private Forkee forkedToRepo;
+        private final Forkee forkedToRepo;
         @SerializedName("ref_type")
-        private String eventRefType;
+        private final String eventRefType;
         @SerializedName("member")
-        private Member addedMember;
+        private final Member addedMember;
         @SerializedName("issue")
-        private Issue eventIssue;
+        private final Issue eventIssue;
         @SerializedName("ref")
-        private String pushRef;
+        private final String eventRef;
         @SerializedName("pull_request")
-        private PullRequest eventPullRequest;
+        private final PullRequest eventPullRequest;
+        @SerializedName("release")
+        private final PullRequest eventRelease;
+
+        public PullRequest getEventRelease() {
+            return eventRelease;
+        }
 
         public PullRequest getEventPullRequest() {
             return eventPullRequest;
         }
 
-        public String getPushRef() {
-            return pushRef;
+        public String getEventRef() {
+            return eventRef;
         }
 
         public Member getAddedMember() {
@@ -129,13 +155,46 @@ public class UserEvents {
         public String getEventAction() {
             return eventAction;
         }
+
+
+        public PayLoad(String eventAction, Forkee forkedToRepo, String eventRefType, Member addedMember, Issue eventIssue, String eventRef, PullRequest eventPullRequest, PullRequest eventRelease) {
+            this.eventAction = eventAction;
+            this.forkedToRepo = forkedToRepo;
+            this.eventRefType = eventRefType;
+            this.addedMember = addedMember;
+            this.eventIssue = eventIssue;
+            this.eventRef = eventRef;
+            this.eventPullRequest = eventPullRequest;
+            this.eventRelease = eventRelease;
+        }
+    }
+
+    public class Release {
+        @SerializedName("tag_name")
+        private final String  releaseTag;
+
+        public String getReleaseTag() {
+            return releaseTag;
+        }
+
+
+        public Release(String releaseTag) {
+            this.releaseTag = releaseTag;
+        }
     }
 
     public class PullRequest {
         @SerializedName("html_url")
-        private String pullRequestHtmlUrl;
+        private final String pullRequestHtmlUrl;
         @SerializedName("number")
-        private int pullRequestNumber;
+        private final int pullRequestNumber;
+
+        @SerializedName("merged")
+        private final boolean isMerged;
+
+        public boolean isMerged() {
+            return isMerged;
+        }
 
         public String getPullRequestHtmlUrl() {
             return pullRequestHtmlUrl;
@@ -144,13 +203,20 @@ public class UserEvents {
         public int getPullRequestNumber() {
             return pullRequestNumber;
         }
+
+
+        public PullRequest(String pullRequestHtmlUrl, int pullRequestNumber, boolean isMerged) {
+            this.pullRequestHtmlUrl = pullRequestHtmlUrl;
+            this.pullRequestNumber = pullRequestNumber;
+            this.isMerged = isMerged;
+        }
     }
 
     public class Issue {
         @SerializedName("number")
-        private int issueNumber;
+        private final int issueNumber;
         @SerializedName("html_url")
-        private String issueHtmlUrl;
+        private final String issueHtmlUrl;
 
         public int getIssueNumber() {
             return issueNumber;
@@ -159,22 +225,33 @@ public class UserEvents {
         public String getIssueHtmlUrl() {
             return issueHtmlUrl;
         }
+
+
+        public Issue(int issueNumber, String issueHtmlUrl) {
+            this.issueNumber = issueNumber;
+            this.issueHtmlUrl = issueHtmlUrl;
+        }
     }
 
     public class Member {
         @SerializedName("login")
-        private String memberLogin;
+        private final String memberLogin;
 
         public String getMemberLogin() {
             return memberLogin;
+        }
+
+
+        public Member(String memberLogin) {
+            this.memberLogin = memberLogin;
         }
     }
 
     public class Forkee {
         @SerializedName("full_name")
-        private String forkedRepoName;
+        private final String forkedRepoName;
         @SerializedName("html_url")
-        private String forkedRepoUrl;
+        private final String forkedRepoUrl;
 
         public String getForkedRepoUrl() {
             return forkedRepoUrl;
@@ -182,6 +259,12 @@ public class UserEvents {
 
         public String getForkedRepoName() {
             return forkedRepoName;
+        }
+
+
+        public Forkee(String forkedRepoName, String forkedRepoUrl) {
+            this.forkedRepoName = forkedRepoName;
+            this.forkedRepoUrl = forkedRepoUrl;
         }
     }
 
@@ -194,5 +277,16 @@ public class UserEvents {
         this.eventRepo = eventRepo;
         this.eventPayload = eventPayload;
         this.eventTime = eventTime;
+
     }
+
+
+
+
+
+
+
+
+
+
 }

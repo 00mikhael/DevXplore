@@ -12,10 +12,15 @@ import java.util.List;
 
 public class RepositoriesResponse {
     @SerializedName("items")
-    private List<Repository> mRepoItems;
+    private final List<Repository> mRepoItems;
 
     @NonNull
     public List<Repository> getRepoItems() {
         return mRepoItems;
+    }
+
+
+    public RepositoriesResponse(List<Repository> mRepoItems) {
+        this.mRepoItems = mRepoItems;
     }
 }

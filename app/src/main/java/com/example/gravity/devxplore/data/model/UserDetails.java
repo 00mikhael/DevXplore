@@ -9,28 +9,33 @@ import com.google.gson.annotations.SerializedName;
 public class UserDetails {
 
     @SerializedName("name")
-    private String name;
+    private final String name;
     @SerializedName("login")
-    private String login;
+    private final String login;
+    @SerializedName("avatar_url")
+    private final String avatarUrl;
     @SerializedName("id")
-    private int id;
+    private final int id;
     @SerializedName("public_repos")
-    private int repos;
+    private final int repos;
     @SerializedName("followers")
-    private int followers;
+    private final int followers;
     @SerializedName("following")
-    private int following;
+    private final int following;
     @SerializedName("public_gists")
-    private int gists;
+    private final int gists;
     @SerializedName("location")
-    private String location;
+    private final String location;
     @SerializedName("bio")
-    private String bio;
+    private final String bio;
     @SerializedName("blog")
-    private String blog;
+    private final String blog;
     @SerializedName("company")
-    private String company;
+    private final String company;
 
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
 
     public String getLocation() {
         return location;
@@ -75,5 +80,20 @@ public class UserDetails {
 
     public int getGists() {
         return gists;
+    }
+
+    public UserDetails(String name, String login, String avatarUrl, int id, int repos, int followers, int following, int gists, String location, String bio, String blog, String company) {
+        this.name = name;
+        this.login = login;
+        this.avatarUrl = avatarUrl;
+        this.id = id;
+        this.repos = repos;
+        this.followers = followers;
+        this.following = following;
+        this.gists = gists;
+        this.location = location;
+        this.bio = bio;
+        this.blog = blog;
+        this.company = company;
     }
 }

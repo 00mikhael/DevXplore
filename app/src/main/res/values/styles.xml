@@ -8,4 +8,8 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="ButtonStyle">
+        <item name="colorControlNormal">?android:attr/textColorSecondary</item>
+        <item name="colorControlHighlight">?attr/ripple_color</item>
+    </style>
 </resources>

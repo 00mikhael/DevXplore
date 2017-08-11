@@ -1,11 +1,15 @@
 package com.example.gravity.devxplore.adapters;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -21,35 +25,51 @@ import java.util.List;
 
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.DeveloperViewHolder> {
 
-    private Context mContext;
-    private List<User> mUsers;
-    private int mRowLayout;
+    private final Context mContext;
+    private final List<User> mUsers;
+    private final int mRowLayout;
+    private final UserAdapterListener mListener;
 
-    public UsersAdapter(Context mContext, List<User> mUsers, int mRowLayout) {
+    public UsersAdapter(Context mContext, List<User> mUsers, int mRowLayout, UserAdapterListener listener) {
         this.mContext = mContext;
         this.mUsers = mUsers;
         this.mRowLayout = mRowLayout;
+        this.mListener = listener;
     }
 
-    public static class DeveloperViewHolder extends RecyclerView.ViewHolder {
-        private ImageView mUserProfilePic;
-        private TextView mUserName;
+    public class DeveloperViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
+        private final ImageView mUserProfilePic;
+        private final TextView mUserName;
+        private final ImageView mFavouriteIcon;
+        private final LinearLayout mContainer;
 
-        public DeveloperViewHolder(View view) {
+        public DeveloperViewHolder(@NonNull View view) {
             super(view);
             mUserProfilePic = (ImageView) view.findViewById(R.id.user_profile_image);
             mUserName = (TextView) view.findViewById(R.id.username);
+            mFavouriteIcon = (ImageView) view.findViewById(R.id.user_favourite);
+            mContainer = (LinearLayout) view.findViewById(R.id.user_container);
+            view.setOnLongClickListener(this);
         }
+
+        @Override
+        public boolean onLongClick(@NonNull View v) {
+            mListener.onCardLongClicked(getAdapterPosition());
+            v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
+            return true;
+        }
+
     }
 
+    @NonNull
     @Override
-    public UsersAdapter.DeveloperViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public UsersAdapter.DeveloperViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(mRowLayout, parent, false);
         return new DeveloperViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final DeveloperViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final DeveloperViewHolder holder, final int position) {
         holder.mUserName.setText(mUsers.get(position).getLogin());
         Glide.with(mContext)
                 .load(mUsers.get(position).getAvatarUrl())
@@ -57,27 +77,70 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.DeveloperVie
                 .crossFade()
                 .thumbnail(0.5f)
                 .into(holder.mUserProfilePic);
-        /*holder.mUserContextMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showContextMenu(holder.mUserContextMenu);
-            }
-        });*/
+        applyClickEvents(holder, position);
+        applyFavourite(holder, position);
     }
 
-    /*private void showContextMenu(View view) {
-        PopupMenu popupMenu = new PopupMenu(mContext, view);
-        MenuInflater inflater = popupMenu.getMenuInflater();
-        inflater.inflate(R.menu.context_menu, popupMenu.getMenu());
-        popupMenu.show();
 
-    }*/
+    private void applyClickEvents(@NonNull final DeveloperViewHolder holder, final int position) {
+
+        holder.mContainer.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(@NonNull View v) {
+                mListener.onCardLongClicked(position);
+                v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
+                return true;
+            }
+        });
+
+        holder.mFavouriteIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeFavourite(holder, position);
+                mListener.onCardFavouriteClicked(position);
+            }
+        });
+        holder.mContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.onCardClicked(position);
+            }
+        });
+    }
+
+    private void changeFavourite(@NonNull DeveloperViewHolder holder, int position) {
+        boolean favourite = mUsers.get(position).isFavourite();
+        if (!favourite) {
+            holder.mFavouriteIcon.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_heart_full));
+            holder.mFavouriteIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorAccent));
+        } else {
+            holder.mFavouriteIcon.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_heart));
+            holder.mFavouriteIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorAccent));
+        }
+    }
+
+    private void applyFavourite(@NonNull DeveloperViewHolder holder, int position) {
+        boolean favourite = mUsers.get(position).isFavourite();
+        if (favourite) {
+            holder.mFavouriteIcon.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_heart_full));
+            holder.mFavouriteIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorAccent));
+        } else {
+            holder.mFavouriteIcon.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_heart));
+            holder.mFavouriteIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorAccent));
+        }
+    }
 
     @Override
     public int getItemCount() {
-        if (mUsers.size() > 10) {
-            return 10;
-        }
         return mUsers.size();
     }
+
+    public interface UserAdapterListener {
+        void onCardClicked(int position);
+
+        void onCardLongClicked(int position);
+
+        void onCardFavouriteClicked(int position);
+    }
+
 }

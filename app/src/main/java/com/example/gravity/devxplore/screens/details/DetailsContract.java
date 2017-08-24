@@ -3,12 +3,11 @@ package com.example.gravity.devxplore.screens.details;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.example.gravity.devxplore.screens.base.BasePresenter;
-import com.example.gravity.devxplore.screens.base.BaseView;
 import com.example.gravity.devxplore.data.model.Repository;
 import com.example.gravity.devxplore.data.model.User;
 import com.example.gravity.devxplore.data.model.UserDetails;
-import com.example.gravity.devxplore.data.model.UserEvents;
+import com.example.gravity.devxplore.screens.base.BasePresenter;
+import com.example.gravity.devxplore.screens.base.BaseView;
 
 import java.util.List;
 
@@ -49,7 +48,7 @@ public interface DetailsContract {
 
     interface DetailView1 extends BaseView<Presenter> {
 
-        void showOverview(List<UserEvents> userEvents);
+        void showOverview(List<Repository> popularRepos);
 
     }
 

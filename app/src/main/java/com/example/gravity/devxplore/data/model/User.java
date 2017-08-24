@@ -35,9 +35,9 @@ public class User {
         isFavourite = favourite;
     }
 
-    public User(String login, int id, String avatarUrl, boolean isFavourite) {
-        this.login = login;
+    public User(int id, String login, String avatarUrl, boolean isFavourite) {
         this.id = id;
+        this.login = login;
         this.avatarUrl = avatarUrl;
         this.isFavourite = isFavourite;
     }

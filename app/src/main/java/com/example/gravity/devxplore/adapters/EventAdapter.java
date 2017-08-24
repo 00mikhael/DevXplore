@@ -81,7 +81,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                     holder.mEvent.setText(userEvent);
                     holder.mEvent.setMovementMethod(LinkMovementMethod.getInstance());
                     holder.mEvent.setLinkTextColor(Color.TRANSPARENT);
-                    holder.mEventImage.setImageResource(R.drawable.ic_book);
+                    holder.mEventImage.setImageResource(R.drawable.ic_repo);
 
                 }else if (mEvents.get(position).getEventPayload().getEventRefType().equals("tag")) {
 
@@ -99,7 +99,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                     holder.mEvent.setText(userEvent);
                     holder.mEvent.setMovementMethod(LinkMovementMethod.getInstance());
                     holder.mEvent.setLinkTextColor(Color.TRANSPARENT);
-                    holder.mEventImage.setImageResource(R.drawable.ic_book);
+                    holder.mEventImage.setImageResource(R.drawable.ic_repo);
 
                 }else if (mEvents.get(position).getEventPayload().getEventRefType().equals("branch")) {
 
@@ -117,7 +117,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                     holder.mEvent.setText(userEvent);
                     holder.mEvent.setMovementMethod(LinkMovementMethod.getInstance());
                     holder.mEvent.setLinkTextColor(Color.TRANSPARENT);
-                    holder.mEventImage.setImageResource(R.drawable.ic_fork);
+                    holder.mEventImage.setImageResource(R.drawable.ic_fork_normal);
 
                 }
                 break;
@@ -136,7 +136,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                 holder.mEvent.setText(userEvent);
                 holder.mEvent.setMovementMethod(LinkMovementMethod.getInstance());
                 holder.mEvent.setLinkTextColor(Color.TRANSPARENT);
-                holder.mEventImage.setImageResource(R.drawable.ic_star_filled);
+                holder.mEventImage.setImageResource(R.drawable.ic_star_selected);
 
                 break;
             case 3: // PushEvent
@@ -154,7 +154,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                 holder.mEvent.setText(userEvent);
                 holder.mEvent.setMovementMethod(LinkMovementMethod.getInstance());
                 holder.mEvent.setLinkTextColor(Color.TRANSPARENT);
-                holder.mEventImage.setImageResource(R.drawable.ic_book);
+                holder.mEventImage.setImageResource(R.drawable.ic_repo);
 
                 break;
             case 4: // ForkEvent
@@ -173,7 +173,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                 holder.mEvent.setText(userEvent);
                 holder.mEvent.setMovementMethod(LinkMovementMethod.getInstance());
                 holder.mEvent.setLinkTextColor(Color.TRANSPARENT);
-                holder.mEventImage.setImageResource(R.drawable.ic_book);
+                holder.mEventImage.setImageResource(R.drawable.ic_repo);
 
                 break;
             case 5: // IssuesEvent
@@ -194,7 +194,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                     holder.mEvent.setText(userEvent);
                     holder.mEvent.setMovementMethod(LinkMovementMethod.getInstance());
                     holder.mEvent.setLinkTextColor(Color.TRANSPARENT);
-                    holder.mEventImage.setImageResource(R.drawable.ic_book);
+                    holder.mEventImage.setImageResource(R.drawable.ic_repo);
 
                 }else if (mEvents.get(position).getEventPayload().getEventAction().equals("closed")) {
                     actor = mEvents.get(position).getEventActor().getActorLogin();
@@ -211,7 +211,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                     holder.mEvent.setText(userEvent);
                     holder.mEvent.setMovementMethod(LinkMovementMethod.getInstance());
                     holder.mEvent.setLinkTextColor(Color.TRANSPARENT);
-                    holder.mEventImage.setImageResource(R.drawable.ic_book);
+                    holder.mEventImage.setImageResource(R.drawable.ic_repo);
                 }
 
                 break;
@@ -231,7 +231,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                 holder.mEvent.setText(userEvent);
                 holder.mEvent.setMovementMethod(LinkMovementMethod.getInstance());
                 holder.mEvent.setLinkTextColor(Color.TRANSPARENT);
-                holder.mEventImage.setImageResource(R.drawable.ic_book);
+                holder.mEventImage.setImageResource(R.drawable.ic_repo);
 
                 break;
             case 7: // MemberEvent
@@ -250,7 +250,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                 holder.mEvent.setText(userEvent);
                 holder.mEvent.setMovementMethod(LinkMovementMethod.getInstance());
                 holder.mEvent.setLinkTextColor(Color.TRANSPARENT);
-                holder.mEventImage.setImageResource(R.drawable.ic_book);
+                holder.mEventImage.setImageResource(R.drawable.ic_repo);
 
                 break;
             case 8: // PullRequestEvent
@@ -272,7 +272,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                     holder.mEvent.setText(userEvent);
                     holder.mEvent.setMovementMethod(LinkMovementMethod.getInstance());
                     holder.mEvent.setLinkTextColor(Color.TRANSPARENT);
-                    holder.mEventImage.setImageResource(R.drawable.ic_book);
+                    holder.mEventImage.setImageResource(R.drawable.ic_repo);
 
                 }else if (mEvents.get(position).getEventPayload().getEventAction().equals("closed") &&
                         !mEvents.get(position).getEventPayload().getEventPullRequest().isMerged()) {
@@ -291,7 +291,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                     holder.mEvent.setText(userEvent);
                     holder.mEvent.setMovementMethod(LinkMovementMethod.getInstance());
                     holder.mEvent.setLinkTextColor(Color.TRANSPARENT);
-                    holder.mEventImage.setImageResource(R.drawable.ic_book);
+                    holder.mEventImage.setImageResource(R.drawable.ic_repo);
 
                 }else if (mEvents.get(position).getEventPayload().getEventAction().equals("opened")) {
 
@@ -309,7 +309,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                     holder.mEvent.setText(userEvent);
                     holder.mEvent.setMovementMethod(LinkMovementMethod.getInstance());
                     holder.mEvent.setLinkTextColor(Color.TRANSPARENT);
-                    holder.mEventImage.setImageResource(R.drawable.ic_book);
+                    holder.mEventImage.setImageResource(R.drawable.ic_repo);
 
                 }
 
@@ -330,7 +330,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                     holder.mEvent.setText(userEvent);
                     holder.mEvent.setMovementMethod(LinkMovementMethod.getInstance());
                     holder.mEvent.setLinkTextColor(Color.TRANSPARENT);
-                    holder.mEventImage.setImageResource(R.drawable.ic_book);
+                    holder.mEventImage.setImageResource(R.drawable.ic_repo);
 
                 break;
             case 10: // PublicEvent
@@ -348,7 +348,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                 holder.mEvent.setText(userEvent);
                 holder.mEvent.setMovementMethod(LinkMovementMethod.getInstance());
                 holder.mEvent.setLinkTextColor(Color.TRANSPARENT);
-                holder.mEventImage.setImageResource(R.drawable.ic_book);
+                holder.mEventImage.setImageResource(R.drawable.ic_repo);
 
                 break;
             case -1: // UncaughtEventType
@@ -358,7 +358,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                 holder.mEvent.setText(action);
                 holder.mEvent.setMovementMethod(LinkMovementMethod.getInstance());
                 holder.mEvent.setLinkTextColor(Color.TRANSPARENT);
-                holder.mEventImage.setImageResource(R.drawable.ic_book);
+                holder.mEventImage.setImageResource(R.drawable.ic_repo);
 
                 break;
         }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="1dp"
-    app:cardBackgroundColor="@color/colorPrimaryDark"
+    app:cardBackgroundColor="?colorPrimary"
     app:cardCornerRadius="0dp"
     app:cardElevation="2dp">
 
@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/ic_book" />
+                app:srcCompat="@drawable/ic_repo" />
         </FrameLayout>
 
         <FrameLayout
@@ -52,7 +52,7 @@
                     android:maxLines="2"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="?textColorMain"
                     android:textSize="16sp"
                     android:text="event" />
 
@@ -66,7 +66,7 @@
                 android:paddingTop="1dp"
                 android:paddingBottom="4dp"
                 android:text="2 hours ago"
-                android:textColor="@color/colorAccent"
+                android:textColor="?textColorSub"
                 android:textSize="12sp" />
 
         </FrameLayout>

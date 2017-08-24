@@ -279,14 +279,4 @@ public class UserEvents {
         this.eventTime = eventTime;
 
     }
-
-
-
-
-
-
-
-
-
-
 }

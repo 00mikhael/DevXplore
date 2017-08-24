@@ -30,11 +30,17 @@ dependencies {
     compile "com.android.support:design:$rootProject.supportLibraryVersion"
     compile "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
     compile "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
+    compile "android.arch.lifecycle:runtime:$rootProject.architectureVersion"
+    compile "android.arch.lifecycle:extensions:$rootProject.architectureVersion"
+    annotationProcessor "android.arch.lifecycle:compiler:$rootProject.architectureVersion"
+    compile "android.arch.persistence.room:runtime:$rootProject.architectureVersion"
+    annotationProcessor "android.arch.persistence.room:compiler:$rootProject.architectureVersion"
     compile "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
     compile "com.github.bumptech.glide:glide:$rootProject.glideVersion"
     compile "de.hdodenhof:circleimageview:$rootProject.circleImageVersion"
-    compile "info.hoang8f:android-segmented:$rootProject.segmentedVersion"
     compile "com.ogaclejapan.smarttablayout:library:$rootProject.smartTabVersion"
     compile "com.ogaclejapan.smarttablayout:utils-v4:$rootProject.smartTabVersion"
+    compile 'com.github.iammert:ExpandableLayout:1.3'
+
 }

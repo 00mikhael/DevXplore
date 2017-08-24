@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Display">
+        <ListPreference
+            android:defaultValue="3"
+            android:dialogTitle="@string/summary_theme"
+            android:entries="@array/pref_theme_entries"
+            android:entryValues="@array/pref_theme_values"
+            android:key="@string/key_theme"
+            android:summary="@string/summary_theme"
+            android:title="@string/title_theme" />
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/key_animation"
+            android:title="Animation" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_title_notifications">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/key_receive_notification"
+            android:title="Receive notifications" />
+
+        <RingtonePreference
+            android:dependency="@string/key_receive_notification"
+            android:key="@string/key_new_notifications_ringtone"
+            android:ringtoneType="notification"
+            android:summary="@string/summary_choose_ringtone"
+            android:title="Sound" />
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/key_vibrate"
+            android:summary="@string/summary_vibrate"
+            android:title="@string/title_vibrate" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_header_about">
+
+        <Preference
+            android:selectable="false"
+            android:summary="@string/summary_about" />
+
+        <Preference
+            android:summary="Andela, Google and Udacity"
+            android:title="Proud sponsors" />
+
+        <Preference
+            android:key="@string/key_send_feedback"
+            android:summary="@string/summary_support"
+            android:title="@string/title_send_feedback" />
+
+        <Preference
+            android:summary="@string/app_version"
+            android:title="@string/title_version" />
+
+
+    </PreferenceCategory>
+</PreferenceScreen>
+

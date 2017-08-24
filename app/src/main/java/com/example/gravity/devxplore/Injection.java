@@ -4,8 +4,9 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.example.gravity.devxplore.data.DataManager;
-import com.example.gravity.devxplore.data.network.NetworkManager;
+import com.example.gravity.devxplore.data.source.DataRepository;
+import com.example.gravity.devxplore.data.source.local.LocalDataSource;
+import com.example.gravity.devxplore.data.source.remote.RemoteDataSource;
 
 /**
  * Created by gravity on 8/2/17.
@@ -14,7 +15,7 @@ import com.example.gravity.devxplore.data.network.NetworkManager;
 @SuppressWarnings("ALL")
 public class Injection {
     @Nullable
-    public static DataManager provideDataManager(@NonNull Context context) {
-        return DataManager.getInstance(NetworkManager.getInstance());
+    public static DataRepository provideDataManager(@NonNull Context context) {
+        return DataRepository.getInstance(RemoteDataSource.getInstance(), LocalDataSource.getInstance());
     }
 }

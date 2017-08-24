@@ -1,20 +1,26 @@
 package com.example.gravity.devxplore.screens.details;
 
+import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.ShareCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v4.widget.Space;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.TypedValue;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +36,6 @@ import com.example.gravity.devxplore.screens.details.following.FollowingFragment
 import com.example.gravity.devxplore.screens.details.overview.OverviewFragment;
 import com.example.gravity.devxplore.screens.details.repos.ReposFragment;
 import com.example.gravity.devxplore.screens.details.starred.StarredFragment;
-import com.example.gravity.devxplore.utilities.AppBarStateChangeListener;
 import com.example.gravity.devxplore.utilities.Util;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
@@ -42,39 +47,31 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 @SuppressWarnings("ALL")
-public class DetailsActivity extends AppCompatActivity implements DetailsContract.MainDetailView, View.OnClickListener, AppBarLayout.OnOffsetChangedListener {
-    private final static float EXPAND_AVATAR_SIZE_DP = 80f;
-    private final static float COLLAPSED_AVATAR_SIZE_DP = 32f;
-    private static final float PERCENTAGE_TO_HIDE_APPBAR_DETAILS = 0.3f;
-    private static final int ALPHA_ANIMATIONS_DURATION = 200;
-
-    private boolean mIsDetailsVisible = true;
+public class DetailsActivity extends AppCompatActivity implements DetailsContract.MainDetailView,
+        View.OnClickListener, AppBarLayout.OnOffsetChangedListener, LoaderManager.LoaderCallbacks<Cursor> {
 
     public final static String USERNAME = "";
+    public final static String TAG = "DETAILS";
 
     private DetailsContract.Presenter mPresenter;
     private AppBarLayout mAppBarLayout;
     private CircleImageView mAvatarImageView;
-    private TextView mCollapsedFullName, mFullName, mUsername, mUserDescription;
+    private TextView mCollapsedUserName, mFullName, mUsername;
     private SmartTabLayout mTabLayout;
+    private LinearLayout mDetailsContainer;
     private ViewPager mViewPager;
-    private Space mSpace;
     private Toolbar mToolBar;
+    private FloatingActionButton mFab;
     private NestedScrollView mNestedScrollView;
-    private LinearLayout mContactContainer;
+    private UserDetails mUser;
+    private LinearLayout mContainerFollowing, mContainerFollowers, mContainerRepos;
+    private TextView mFollowingCount, mFollowersCount, mReposCount;
+    private ImageView mGithubLink;
+    /*private String userBio;*/
+    private String username;
+    FragmentPager mAdapter;
 
-    private AppBarStateChangeListener mAppBarStateChangeListener;
 
-    @NonNull
-    private final int[] mAvatarPoint = new int[2];
-    @NonNull
-    private final int[] mSpacePoint = new int[2];
-    @NonNull
-    private final int[] mToolbarTextPoint =
-            new int[2];
-    @NonNull
-    private final int[] mTitleTextViewPoint = new int[2];
-    private float mTitleTextSize;
 
     @NonNull
     public static Intent createIntent(Context context, String username) {
@@ -83,6 +80,10 @@ public class DetailsActivity extends AppCompatActivity implements DetailsContrac
         return intent;
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,17 +91,17 @@ public class DetailsActivity extends AppCompatActivity implements DetailsContrac
         setContentView(R.layout.fragment_details);
 
         findViews();
-        setUpViews();
+        setUpToolbar();
 
         mNestedScrollView.setFillViewport(true);
 
         DetailsPresenter mUserDetailsPresenter = new DetailsPresenter(Injection.provideDataManager(getApplicationContext()), this);
-        String username = getIntent().getStringExtra(USERNAME);
+        username = getIntent().getStringExtra(USERNAME);
         mPresenter.loadUserDetails(username);
+        setUpFragments();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-
-        FragmentPager mAdapter = new FragmentPager(fragmentManager);
+        mAdapter = new FragmentPager(fragmentManager);
         mAdapter.addFragment(OverviewFragment.newInstance(username), "Overview");
         mAdapter.addFragment(ReposFragment.newInstance(username), "Repos");
         mAdapter.addFragment(StarredFragment.newInstance(username), "Starred");
@@ -111,38 +112,77 @@ public class DetailsActivity extends AppCompatActivity implements DetailsContrac
         mTabLayout.setViewPager(mViewPager);
 
         mAppBarLayout.addOnOffsetChangedListener(this);
+
+        mFab.setOnClickListener(this);
+        mContainerFollowers.setOnClickListener(this);
+        mContainerFollowing.setOnClickListener(this);
+        mContainerRepos.setOnClickListener(this);
+        mGithubLink.setOnClickListener(this);
+    }
+
+    public void setUpFragments() {
+
     }
 
     @Override
     public void showUserDetails(@NonNull UserDetails user) {
+        this.mUser = user;
+        /*userBio = user.getBio();*/
+
 
         if (user.getLogin() == null) {
-            Toast.makeText(this, "Nullity", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No Username", Toast.LENGTH_SHORT).show();
         }else {
             mUsername.setText(user.getLogin());
+            mCollapsedUserName.setText(user.getLogin());
         }
+
         if (user.getName() == null) {
             mFullName.setTypeface(mFullName.getTypeface(), Typeface.ITALIC);
             mFullName.setText("Name Unavailable");
         } else {
             mFullName.setText(user.getName());
         }
-        if (user.getBio() == null) {
-            mUserDescription.setTypeface(mUserDescription.getTypeface(), Typeface.ITALIC);
-            mUserDescription.setText("Bio Unavailable");
-        } else {
-            mUserDescription.setText(user.getBio());
-        }
+
         Glide.with(getApplicationContext())
                 .load(user.getAvatarUrl())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .crossFade()
                 .thumbnail(0.5f)
                 .into(mAvatarImageView);
+
+        int followers = user.getFollowers();
+        int following = user.getFollowing();
+        int repos = user.getRepos();
+
+        Log.e(TAG, "followers: "+followers+"\nfollowing: "+following+"\nrepos: "+repos);
+
+        mFollowersCount.setText(""+followers+"");
+        mFollowingCount.setText(""+following+"");
+        mReposCount.setText(""+repos+"");
     }
 
     @Override
     public void onClick(View v) {
+        int clickedView = v.getId();
+        switch (clickedView) {
+            case R.id.details_fab:
+                Intent intent = createShareForecastIntent();
+                startActivity(intent);
+                break;
+            case R.id.details_followers_container:
+                mTabLayout.getTabAt(4);
+                break;
+            case R.id.details_following_container:
+                mTabLayout.getTabAt(3);
+                break;
+            case R.id.details_repos_container:
+                mTabLayout.getTabAt(1);
+                break;
+            case R.id.details_github_link:
+                Toast.makeText(this, "github", Toast.LENGTH_SHORT).show();
+                break;
+        }
 
     }
 
@@ -157,111 +197,92 @@ public class DetailsActivity extends AppCompatActivity implements DetailsContrac
     }
 
     private void findViews() {
-        mAppBarLayout = (AppBarLayout) findViewById(R.id.profile_app_bar);
-        mAvatarImageView = (CircleImageView) findViewById(R.id.profile_profile_image);
-        mCollapsedFullName = (TextView) findViewById(R.id.profile_fullname_collapsed);
-        mFullName = (TextView) findViewById(R.id.profile_fullname);
-        mUsername = (TextView) findViewById(R.id.profile_username);
-        mUserDescription = (TextView) findViewById(R.id.profile_bio);
-        mSpace = (Space) findViewById(R.id.space);
-        mTabLayout = (SmartTabLayout) findViewById(R.id.profile_tab);
-        mViewPager = (ViewPager) findViewById(R.id.profile_viewpager);
-        mToolBar = (Toolbar) findViewById(R.id.profile_toolbar);
-        mContactContainer = (LinearLayout) findViewById(R.id.profile_contact_container);
-        mNestedScrollView = (NestedScrollView) findViewById(R.id.profile_nested_scrollview);
+        mAppBarLayout = (AppBarLayout) findViewById(R.id.details_app_bar);
+        mAvatarImageView = (CircleImageView) findViewById(R.id.details_profile_image);
+        mCollapsedUserName = (TextView) findViewById(R.id.details_username_collapsed);
+        mFullName = (TextView) findViewById(R.id.details_fullname);
+        mUsername = (TextView) findViewById(R.id.details_username);
+        mTabLayout = (SmartTabLayout) findViewById(R.id.details_tab);
+        mViewPager = (ViewPager) findViewById(R.id.details_viewpager);
+        mToolBar = (Toolbar) findViewById(R.id.details_toolbar);
+        mDetailsContainer = (LinearLayout) findViewById(R.id.details_container);
+        mFab = (FloatingActionButton) findViewById(R.id.details_fab);
+        mNestedScrollView = (NestedScrollView) findViewById(R.id.details_nested_scrollview);
+        mContainerFollowing = (LinearLayout) findViewById(R.id.details_following_container);
+        mContainerFollowers = (LinearLayout) findViewById(R.id.details_followers_container);
+        mContainerRepos = (LinearLayout) findViewById(R.id.details_repos_container);
+        mFollowingCount = (TextView) findViewById(R.id.following_count);
+        mFollowersCount = (TextView) findViewById(R.id.followers_count);
+        mReposCount = (TextView) findViewById(R.id.repos_count);
+        mGithubLink = (ImageView) findViewById(R.id.details_github_link);
     }
 
-    private void setUpViews() {
-        mTitleTextSize = mFullName.getTextSize();
-        setUpToolbar();
-        setUpAmazingAvatar();
+    private Intent createShareForecastIntent() {
+        String username = mUser.getLogin();
+        String link = mUser.getHtmlUrl();
+        Intent shareIntent = ShareCompat.IntentBuilder.from(this)
+                .setType("text/plain")
+                .setText("Checkout this awesome developer @" + username + ", " + link)
+                .getIntent();
+        return  shareIntent;
     }
 
     private void setUpToolbar() {
         setSupportActionBar(mToolBar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("");
         }
     }
 
-    private void setUpAmazingAvatar() {
-        mAppBarStateChangeListener = new AppBarStateChangeListener() {
-
-            @Override
-            public void onStateChanged(AppBarLayout appBarLayout,
-                                       AppBarStateChangeListener.State state) {
-            }
-
-            @Override
-            public void onOffsetChanged(AppBarStateChangeListener.State state, float offset) {
-                translationView(offset);
-            }
-        };
-        mAppBarLayout.addOnOffsetChangedListener(mAppBarStateChangeListener);
-    }
-
-    private void translationView(float offset) {
-        float xOffset = -(mAvatarPoint[0] - mSpacePoint[0]) * offset;
-        float yOffset = -(mAvatarPoint[1] - mSpacePoint[1]) * offset;
-        float xTitleOffset = -(mTitleTextViewPoint[0] - mToolbarTextPoint[0]) * offset;
-        float yTitleOffset = -(mTitleTextViewPoint[1] - mToolbarTextPoint[1]) * offset;
-        int newSize = Util.convertDpToPixelSize(
-                EXPAND_AVATAR_SIZE_DP - (EXPAND_AVATAR_SIZE_DP - COLLAPSED_AVATAR_SIZE_DP) * offset, this);
-        float newTextSize =
-                mTitleTextSize - (mTitleTextSize - mCollapsedFullName.getTextSize()) * offset;
-        mAvatarImageView.getLayoutParams().width = newSize;
-        mAvatarImageView.getLayoutParams().height = newSize;
-        mAvatarImageView.setTranslationX(xOffset);
-        mAvatarImageView.setTranslationY(yOffset);
-        mFullName.setTextSize(TypedValue.COMPLEX_UNIT_PX, newTextSize);
-        mFullName.setTranslationX(xTitleOffset);
-        mFullName.setTranslationY(yTitleOffset);
-    }
-
-    private void clearAnim() {
-        mAvatarImageView.setTranslationX(0);
-        mAvatarImageView.setTranslationY(0);
-        mFullName.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTitleTextSize);
-        mFullName.setTranslationX(0);
-        mFullName.setTranslationY(0);
-    }
-
-    private void resetPoints() {
-        clearAnim();
-
-        int avatarSize = Util.convertDpToPixelSize(EXPAND_AVATAR_SIZE_DP, this);
-        mAvatarImageView.getLocationOnScreen(mAvatarPoint);
-        mAvatarPoint[0] -= (avatarSize - mAvatarImageView.getWidth()) / 2;
-        mSpace.getLocationOnScreen(mSpacePoint);
-        mCollapsedFullName.getLocationOnScreen(mToolbarTextPoint);
-        mToolbarTextPoint[0] += Util.convertDpToPixelSize(16, this);
-        mFullName.post(new Runnable() {
-
-            @Override
-            public void run() {
-                mFullName.getLocationOnScreen(mTitleTextViewPoint);
-                translationView(mAppBarStateChangeListener.getCurrentOffset());
-            }
-        });
-    }
-
     @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (!hasFocus) {
-            return;
-        }
-        resetPoints();
-    }
-
-    @Override
-    public void onOffsetChanged(@NonNull AppBarLayout appBarLayout, int verticalOffset) {
+    public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
         int maxScroll = appBarLayout.getTotalScrollRange();
-        float percentage = (float) Math.abs(verticalOffset) / (float) maxScroll;
+        float percentage = (float) Math.abs(offset) / (float) maxScroll;
 
-        Util.handleAlphaOnView(mUsername, percentage);
-        Util.handleAlphaOnView(mUserDescription, percentage);
-        Util.handleAlphaOnView(mContactContainer, percentage);
+        Util.handleAlphaOnTitle(percentage, mDetailsContainer);
+        Util.handleToolbarTitleVisibility(percentage, mCollapsedUserName);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.detail, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_favourite) {
+            applyFavourite(item);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void applyFavourite(MenuItem item) {
+        boolean favourite = mUser.isFavourite();
+        if (!favourite) {
+            item.setIcon(R.drawable.ic_heart_selected);
+        } else {
+            item.setIcon(R.drawable.ic_heart_outline);
+        }
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
     }
 }

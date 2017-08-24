@@ -7,16 +7,14 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.gravity.devxplore.Injection;
 import com.example.gravity.devxplore.R;
-import com.example.gravity.devxplore.adapters.EventAdapter;
-import com.example.gravity.devxplore.data.model.UserEvents;
+import com.example.gravity.devxplore.adapters.PopularReposAdapter;
+import com.example.gravity.devxplore.data.model.Repository;
 import com.example.gravity.devxplore.screens.details.DetailsContract;
 import com.example.gravity.devxplore.screens.details.DetailsPresenter;
 import com.example.gravity.devxplore.utilities.DividerItemDecoration;
@@ -28,14 +26,17 @@ import java.util.List;
  */
 
 @SuppressWarnings("ALL")
-public class OverviewFragment extends Fragment implements DetailsContract.DetailView1 {
+public class OverviewFragment extends Fragment implements DetailsContract.DetailView1, PopularReposAdapter.RepoAdapterListener {
 
     public final static String USERNAME = "";
+    public final static String BIO = "";
+    public final static String TAG = "OVERVIEWFRAG";
 
     private DetailsContract.Presenter mPresenter;
     private RecyclerView mRecyclerView;
     @Nullable
     private String username;
+    /*private String userbio;*/
 
     @NonNull
     public static OverviewFragment newInstance(String username) {
@@ -49,7 +50,6 @@ public class OverviewFragment extends Fragment implements DetailsContract.Detail
     @Override
     public void onResume() {
         super.onResume();
-        assert username != null;
         mPresenter.loadOverview(username);
     }
 
@@ -62,10 +62,17 @@ public class OverviewFragment extends Fragment implements DetailsContract.Detail
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        /*TextView bioText = (TextView) view.findViewById(R.id.bio);*/
 
         DetailsPresenter mUserDetailsPresenter = new DetailsPresenter(Injection.provideDataManager(getActivity().getApplicationContext()), this);
 
         username = getArguments().getString(USERNAME);
+        /*userbio = getArguments().getString(BIO);
+        if (userbio == null) {
+            bioText.setText("No bio");
+        }else {
+            bioText.setText(userbio);
+        }*/
 
         return view;
     }
@@ -76,10 +83,18 @@ public class OverviewFragment extends Fragment implements DetailsContract.Detail
     }
 
     @Override
-    public void showOverview(List<UserEvents> userEvents) {
-        List<UserEvents> mEvents = userEvents;
-        mRecyclerView.setAdapter(new EventAdapter(getActivity(), userEvents));
-        Toast.makeText(getActivity(), "Got OverView too", Toast.LENGTH_SHORT).show();
-        Log.e("UserOverView", "OverView Called");
+    public void showOverview(List<Repository> popularRepos) {
+        List<Repository> mPopularRepos = popularRepos;
+        mRecyclerView.setAdapter(new PopularReposAdapter(getActivity(), popularRepos,this));
+    }
+
+    @Override
+    public void onCardClicked(int position) {
+
+    }
+
+    @Override
+    public void onCardLongClicked(int position) {
+
     }
 }

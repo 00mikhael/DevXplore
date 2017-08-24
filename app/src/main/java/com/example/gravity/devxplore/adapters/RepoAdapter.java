@@ -82,6 +82,7 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoViewHolder
         }else {
             holder.mRepoDescription.setText(mRepositories.get(position).getDescription());
         }
+        holder.mRepoColor.setBackgroundResource(getLanguageColor(position));
         holder.mRepoStarCount.setText(""+mRepositories.get(position).getRepoStars()+"");
         holder.mRepoWatchCount.setText(""+mRepositories.get(position).getRepoWatchers()+"");
         holder.mRepoForkCount.setText(""+mRepositories.get(position).getRepoForks()+"");
@@ -105,6 +106,80 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoViewHolder
                 return true;
             }
         });
+    }
+
+    private int getLanguageColor(int position) {
+        String language = mRepositories.get(position).getLanguage();
+        if (language == null) {
+            return R.color.colorAccent;
+        }
+        int langColorId;
+        switch (language) {
+            case "Java":
+                langColorId = R.color.Java;
+                break;
+            case "JavaScript":
+                langColorId = R.color.JavaScript;
+                break;
+            case "Python":
+                langColorId = R.color.Python;
+                break;
+            case "Kotlin":
+                langColorId = R.color.Kotlin;
+                break;
+            case "HTML":
+                langColorId = R.color.HTML;
+                break;
+            case "CSS":
+                langColorId = R.color.CSS;
+                break;
+            case "C":
+                langColorId = R.color.C;
+                break;
+            case "C#":
+                langColorId = R.color.CSharp;
+                break;
+            case "C++":
+                langColorId = R.color.CPP;
+                break;
+            case "Objective-C":
+                langColorId = R.color.ObjectiveC;
+                break;
+            case "Vue":
+                langColorId = R.color.Vue;
+                break;
+            case "CoffeeScript":
+                langColorId = R.color.CoffeeScript;
+                break;
+            case "Go":
+                langColorId = R.color.Go;
+                break;
+            case "Swift":
+                langColorId = R.color.Swift;
+                break;
+            case "F#":
+                langColorId = R.color.FSharp;
+                break;
+            case "Perl":
+                langColorId = R.color.Perl;
+                break;
+            case "Scala":
+                langColorId = R.color.Scala;
+                break;
+            case "Shell":
+                langColorId = R.color.Shell;
+                break;
+            case "PHP":
+                langColorId = R.color.PHP;
+                break;
+            case "Ruby":
+                langColorId = R.color.Ruby;
+                break;
+            default:
+                langColorId = R.color.colorAccent;
+                break;
+        }
+        return langColorId;
     }
 
     @Override

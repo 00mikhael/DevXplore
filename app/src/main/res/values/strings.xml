@@ -3,7 +3,50 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
-    <string-array name="languages">
-    </string-array>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula sem a malesuada rhoncus. </string>
+    <string name="fullname">Fullname</string>
+    <string name="username">Username</string>
+    <string name="bio">Bio</string>
+    <string name="user_github_link">User Github Link</string>
+    <string name="user_email_link">User Email Link</string>
+    <string name="location">Location</string>
+    <string name="find">Find</string>
+    <string name="popular_repositories">Popular Repositories</string>
+
+    <string-array name="fragment_titles">
+        <item>Explore</item>
+        <item>Favourites</item>
+        <item>Statistics</item>
+        <item>Profile</item>
+        <item>Notifications</item>
+        <item>About</item>
+        <item>Sponsor</item>
+    </string-array>
+
+    <string name="pref_ringtone_silent">Silent</string>
+    <string name="choose_theme">Choose Theme</string>
+    <string name="pref_title_notifications">Notifications</string>
+    <string name="summary_choose_ringtone">Choose notification sound</string>
+    <string name="pref_header_about">About</string>
+    <string name="summary_about">We are a team of like-minded people, specialized in development of Android App Development creating new trends across the app space. Glad to Help in anyway!</string>
+    <string name="app_version">1.0</string>
+    <string name="summary_support">Say Hi!</string>
+    <string name="title_send_feedback">Send Feedback</string>
+    <string name="title_version">Version</string>
+    <string name="choose_email_client">Choose email client</string>
+    <string name="title_vibrate">Vibrate</string>
+    <string name="title_theme">Theme</string>
+    <string name="summary_theme">Choose Theme</string>
+    <string name="summary_vibrate">Vibrate on new notification</string>
+    <string name="key_new_notifications_ringtone">key_new_notifications_ringtone</string>
+    <string name="key_vibrate">key_vibrate</string>
+    <string name="key_animation">key_animation</string>
+    <string name="key_theme">key_theme</string>
+    <string name="key_receive_notification">key_receive_notification</string>
+    <string name="key_send_feedback">key_send_feedback</string>
+    <string name="favourite">favourite</string>
+    <string name="following">following</string>
+    <string name="followers">followers</string>
+    <string name="repos">repos</string>
+
 </resources>

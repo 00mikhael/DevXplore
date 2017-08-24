@@ -6,35 +6,41 @@
     android:layout_width="match_parent"
     android:layout_height="150dp"
     android:layout_marginBottom="2dp"
-    android:layout_marginStart="2dp"
-    android:layout_marginEnd="2dp"
-    android:layout_marginLeft="2dp"
-    android:layout_marginRight="2dp"
-    app:cardBackgroundColor="@color/colorPrimaryDark"
+    android:layout_marginEnd="3dp"
+    android:layout_marginLeft="3dp"
+    android:layout_marginRight="3dp"
+    android:layout_marginStart="3dp"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardBackgroundColor="?colorPrimary"
     app:cardCornerRadius="0dp"
-    app:cardElevation="4dp">
+    app:cardElevation="0dp">
 
     <View
         android:id="@+id/repo_color"
-        android:layout_width="5dp"
+        android:layout_width="3dp"
         android:layout_height="match_parent"
-        android:background="@color/colorAccent" />
+        tools:background="@color/colorAccent" />
 
     <RelativeLayout
         android:id="@+id/repo_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
         android:paddingEnd="8dp"
         android:paddingLeft="8dp"
-        android:paddingRight="8dp">
+        android:paddingRight="8dp"
+        android:paddingStart="8dp">
 
         <LinearLayout
             android:id="@+id/repo_header_layout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:orientation="vertical"
             android:gravity="center_vertical"
+            android:orientation="vertical"
             android:paddingEnd="8dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
@@ -46,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textColor="@color/textColorGray"
+                android:textColor="?textColorMain"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:typeface="normal"
@@ -62,9 +68,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
-                    android:typeface="normal"
-                    android:textColor="@color/textColorGrayDark"
+                    android:textColor="?textColorSub"
                     android:textSize="12sp"
+                    android:typeface="normal"
                     tools:text="java" />
             </RelativeLayout>
 
@@ -85,17 +91,17 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingStart="8dp"
-            android:typeface="sans"
             android:text="@string/lorem"
-            android:textColor="@color/textColorGray"
-            android:textSize="16sp" />
+            android:textColor="?textColorMain"
+            android:textSize="16sp"
+            android:typeface="sans" />
 
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@id/repo_description"
-            android:background="@color/primary" />
+            android:background="?textColorSub" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -113,6 +119,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"
+                android:theme="@style/ButtonStyle"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -134,8 +141,8 @@
                     android:focusable="false"
                     android:gravity="center_vertical"
                     android:padding="2dp"
-                    android:textColor="@color/textColorGray"
-                    android:textSize="20sp"
+                    android:textColor="?textColorMain"
+                    android:textSize="14sp"
                     tools:text="0" />
             </LinearLayout>
 
@@ -146,6 +153,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"
+                android:theme="@style/ButtonStyle"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -167,8 +175,8 @@
                     android:focusable="false"
                     android:gravity="center_vertical"
                     android:padding="2dp"
-                    android:textColor="@color/textColorGray"
-                    android:textSize="20sp"
+                    android:textColor="?textColorMain"
+                    android:textSize="14sp"
                     tools:text="0" />
             </LinearLayout>
 
@@ -179,6 +187,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"
+                android:theme="@style/ButtonStyle"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -190,7 +199,7 @@
                     android:focusable="false"
                     android:padding="8dp"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_fork" />
+                    app:srcCompat="@drawable/ic_fork_normal" />
 
                 <TextView
                     android:id="@+id/repo_fork_count"
@@ -200,8 +209,8 @@
                     android:focusable="false"
                     android:gravity="center_vertical"
                     android:padding="2dp"
-                    android:textColor="@color/textColorGray"
-                    android:textSize="20sp"
+                    android:textColor="?textColorMain"
+                    android:textSize="14sp"
                     tools:text="0" />
             </LinearLayout>
         </LinearLayout>

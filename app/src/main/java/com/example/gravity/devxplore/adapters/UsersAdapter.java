@@ -1,9 +1,12 @@
 package com.example.gravity.devxplore.adapters;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +21,7 @@ import com.example.gravity.devxplore.R;
 import com.example.gravity.devxplore.data.model.User;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by gravity on 7/4/17.
@@ -74,6 +78,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.DeveloperVie
         Glide.with(mContext)
                 .load(mUsers.get(position).getAvatarUrl())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.color.colorAccent)
                 .crossFade()
                 .thumbnail(0.5f)
                 .into(holder.mUserProfilePic);
@@ -111,23 +116,37 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.DeveloperVie
     private void changeFavourite(@NonNull DeveloperViewHolder holder, int position) {
         boolean favourite = mUsers.get(position).isFavourite();
         if (!favourite) {
-            holder.mFavouriteIcon.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_heart_full));
+            holder.mFavouriteIcon.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_heart_selected));
             holder.mFavouriteIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorAccent));
         } else {
-            holder.mFavouriteIcon.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_heart));
-            holder.mFavouriteIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorAccent));
+            holder.mFavouriteIcon.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_heart_outline));
+            holder.mFavouriteIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.icon_color_Light));
         }
     }
 
     private void applyFavourite(@NonNull DeveloperViewHolder holder, int position) {
         boolean favourite = mUsers.get(position).isFavourite();
         if (favourite) {
-            holder.mFavouriteIcon.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_heart_full));
+            holder.mFavouriteIcon.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_heart_selected));
             holder.mFavouriteIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorAccent));
         } else {
-            holder.mFavouriteIcon.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_heart));
-            holder.mFavouriteIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorAccent));
+            holder.mFavouriteIcon.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_heart_outline));
+            holder.mFavouriteIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.icon_color_Light));
         }
+    }
+
+    private int getRandomMaterialColor() {
+        int[] colors = mContext.getResources().getIntArray(R.array.holderColors);
+        int randomColor = colors[new Random().nextInt(colors.length)];
+        return randomColor;
+    }
+
+    private int obtainColor() {
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = mContext.getTheme();
+        theme.resolveAttribute(R.attr.icon_color, typedValue, true);
+        @ColorInt int iconColor = typedValue.data;
+        return iconColor;
     }
 
     @Override

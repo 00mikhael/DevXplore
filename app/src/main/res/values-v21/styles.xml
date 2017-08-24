@@ -1,13 +1,9 @@
 <resources>
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimaryDark</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:windowBackground">@color/background</item>
-        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+        <item name="windowActionBar">true</item>
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
         <item name="android:windowAllowReturnTransitionOverlap">true</item>
@@ -15,11 +11,58 @@
         <item name="android:windowSharedElementExitTransition">@android:transition/move</item>
     </style>
 
-    <style name="CardView.Dark.Theme">
-
+    <style name="AppTheme.Light" parent="AppTheme">
+        <item name="colorPrimary">@color/colorPrimary_Light</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_Light</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">?textColorMain</item>
+        <item name="android:windowBackground">@color/background_Light</item>
+        <item name="textColorMain">@color/textColorMain_Light</item>
+        <item name="textColorSub">@color/textColorSub_Light</item>
+        <item name="textColor">@color/textColorLight</item>
+        <item name="icon_color">@color/icon_color_Light</item>
+        <item name="android:textColorSecondary">@color/textColorMain_Light</item>
+        <item name="actionOverflowButtonStyle">@style/OverFlow</item>
+        <item name="location_color">@color/location_color_Light</item>
+        <item name="ripple_color_fav">@color/colorAccent</item>
+        <item name="ripple_color">@color/colorAccent</item>
     </style>
 
-    <style name="MyMaterialTheme" parent="AppTheme">
-
+    <style name="AppTheme.Dark" parent="AppTheme">
+        <item name="colorPrimary">@color/colorPrimary_Dark</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_Dark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">?textColorMain</item>
+        <item name="android:textColorSecondary">@color/textColorMain_Dark</item>
+        <item name="android:windowBackground">@color/background_Dark</item>
+        <item name="textColorMain">@color/textColorMain_Dark</item>
+        <item name="textColorSub">@color/textColorSub_Dark</item>
+        <item name="textColor">@color/textColorDark</item>
+        <item name="icon_color">@color/icon_color_Dark</item>
+        <item name="actionOverflowButtonStyle">@style/OverFlow</item>
+        <item name="location_color">@color/location_color_Dark</item>
+        <item name="ripple_color">@color/colorAccent</item>
+        <item name="ripple_color_fav">@color/colorAccent</item>
     </style>
+
+    <style name="OverFlow" parent="@style/Widget.AppCompat.Light.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_overflow</item>
+    </style>
+
+    <style name="EditTextStyle">
+        <item name="android:background">?colorPrimaryDark</item>
+        <item name="android:textColor">?textColorMain</item>
+        <item name="android:textColorHint">?textColorSub</item>
+    </style>
+
+    <style name="ButtonStyle">
+        <item name="colorControlNormal">?android:attr/textColorSecondary</item>
+        <item name="colorControlHighlight">?ripple_color</item>
+    </style>
+
+    <style name="ButtonStyleFav">
+        <item name="colorControlNormal">?android:attr/textColorSecondary</item>
+        <item name="colorControlHighlight">?ripple_color_fav</item>
+    </style>
+
 </resources>

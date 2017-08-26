@@ -1,5 +1,6 @@
 package com.example.gravity.devxplore.data.model;
 
+import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
@@ -12,15 +13,15 @@ import java.util.List;
 
 public class RepositoriesResponse {
     @SerializedName("items")
-    private final List<Repository> mRepoItems;
+    private final LiveData<List<Repository>> mRepoItems;
 
     @NonNull
-    public List<Repository> getRepoItems() {
+    public LiveData<List<Repository>> getRepoItems() {
         return mRepoItems;
     }
 
 
-    public RepositoriesResponse(List<Repository> mRepoItems) {
+    public RepositoriesResponse(LiveData<List<Repository>> mRepoItems) {
         this.mRepoItems = mRepoItems;
     }
 }

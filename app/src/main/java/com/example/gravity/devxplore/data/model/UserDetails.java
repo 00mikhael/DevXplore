@@ -1,34 +1,68 @@
 package com.example.gravity.devxplore.data.model;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by gravity on 7/14/17.
  */
-
+@Entity(tableName = "details", foreignKeys = {
+        @ForeignKey(entity = User.class,
+                    parentColumns = "login",
+                    childColumns = "login",
+                    onDelete = ForeignKey.CASCADE,
+                    onUpdate = ForeignKey.CASCADE),
+        @ForeignKey(entity = User.class,
+                    parentColumns = "is_favourite",
+                    childColumns = "is_favourite",
+                    onDelete = ForeignKey.CASCADE,
+                    onUpdate = ForeignKey.CASCADE)},
+        indices = {@Index(value = {"login"}, unique = true)
+})
 public class UserDetails {
-
-    @SerializedName("name")
-    private final String name;
+    @PrimaryKey
+    @ColumnInfo(name = "login")
     @SerializedName("login")
-    private final String login;
+    private String login;
+
+    @ColumnInfo(name = "fullname")
+    @SerializedName("name")
+    private String name;
+
+    @ColumnInfo(name = "avatar_url")
     @SerializedName("avatar_url")
-    private final String avatarUrl;
+    private String avatarUrl;
+
+    @ColumnInfo(name = "html_url")
     @SerializedName("html_url")
-    private final String htmlUrl;
-    @SerializedName("id")
-    private final int id;
+    private String htmlUrl;
+
+    @ColumnInfo(name = "repos_count")
     @SerializedName("public_repos")
-    private final int repos;
+    private int repos;
+
+    @ColumnInfo(name = "followers_count")
     @SerializedName("followers")
-    private final int followers;
+    private int followers;
+
+    @ColumnInfo(name = "following_count")
     @SerializedName("following")
-    private final int following;
+    private int following;
+
+    @ColumnInfo(name = "location")
     @SerializedName("location")
-    private final String location;
+    private String location;
+
+    @ColumnInfo(name = "bio")
     @SerializedName("bio")
-    private final String bio;
-    @SerializedName("blog")
+    private String bio;
+
+    @ColumnInfo(name = "is_favourite")
     private boolean isFavourite = false;
 
     public boolean isFavourite() {
@@ -64,10 +98,6 @@ public class UserDetails {
         return login;
     }
 
-    public int getId() {
-        return id;
-    }
-
     public int getRepos() {
         return repos;
     }
@@ -80,12 +110,47 @@ public class UserDetails {
         return following;
     }
 
-    public UserDetails(int id, String name, String login, String avatarUrl, String htmlUrl, int repos, int followers, int following, String location, String bio, boolean isFavourite) {
-        this.name = name;
+    public void setLogin(String login) {
         this.login = login;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public void setHtmlUrl(String htmlUrl) {
+        this.htmlUrl = htmlUrl;
+    }
+
+    public void setRepos(int repos) {
+        this.repos = repos;
+    }
+
+    public void setFollowers(int followers) {
+        this.followers = followers;
+    }
+
+    public void setFollowing(int following) {
+        this.following = following;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public UserDetails(String login, String name, String avatarUrl, String htmlUrl, int repos, int followers, int following, String location, String bio, boolean isFavourite) {
+        this.login = login;
+        this.name = name;
         this.avatarUrl = avatarUrl;
         this.htmlUrl = htmlUrl;
-        this.id = id;
         this.repos = repos;
         this.followers = followers;
         this.following = following;

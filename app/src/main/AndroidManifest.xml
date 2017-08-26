@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme.Light"
         tools:ignore="GoogleAppIndexingWarning"
         android:fullBackupContent="@xml/backup_descriptor">
-        <activity android:name=".screens.base.BaseActivity"
+        <activity android:name=".view.ui.base.BaseActivity"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,29 +21,29 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.gravity.devxplore.screens.details.DetailsActivity">
+        <activity android:name=".view.ui.details.DetailsActivity">
             <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>-->
         </activity>
-        <activity android:name="com.example.gravity.devxplore.screens.authentication.AuthActivity">
+        <activity android:name=".view.ui.authentication.AuthActivity">
             <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>-->
         </activity>
-        <activity android:name="com.example.gravity.devxplore.screens.profile.ProfileActivity">
+        <activity android:name=".view.ui.profile.ProfileActivity">
             <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>-->
         </activity>
-        <activity android:name="com.example.gravity.devxplore.screens.settings.SettingsPrefActivity"
-            android:parentActivityName=".screens.base.BaseActivity">
+        <activity android:name=".view.ui.settings.SettingsPrefActivity"
+            android:parentActivityName=".view.ui.base.BaseActivity">
             <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

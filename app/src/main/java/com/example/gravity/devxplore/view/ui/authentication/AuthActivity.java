@@ -1,5 +1,7 @@
 package com.example.gravity.devxplore.view.ui.authentication;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -9,22 +11,29 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.gravity.devxplore.R;
-import com.example.gravity.devxplore.view.ui.authentication.signin.SignInFragment;
+import com.example.gravity.devxplore.utilities.ThemeUtil;
 
 /**
  * Created by gravity on 7/2/17.
  */
 
 public class AuthActivity extends AppCompatActivity {
+
+    @NonNull
+    public static Intent createIntent(Context context) {
+        return new Intent(context, AuthActivity.class);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ThemeUtil.onActivityCreateSetTheme(this);
         setContentView(R.layout.fragment_container_general);
-
+        
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
         if (fragment == null) {
-            fragment = SignInFragment.newInstance();
+            fragment = AuthFragment.newInstance();
             fm.beginTransaction()
                     .add(R.id.fragment_container, fragment)
                     .commit();

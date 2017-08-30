@@ -19,6 +19,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.gravity.devxplore.R;
 import com.example.gravity.devxplore.data.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,16 +27,27 @@ import java.util.List;
  */
 
 public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.DeveloperViewHolder> {
-    private final Context mContext;
+    private  Context mContext;
     private List<User> mFavourites;
-    private final int mRowLayout;
-    private final FavouriteAdapterListener mListener;
+    private  int mRowLayout;
+    private  FavouriteAdapterListener mListener;
 
-    public FavouriteAdapter(Context mContext, List<User> mFavourites, int mRowLayout, FavouriteAdapterListener listener) {
+    public FavouriteAdapter(Context mContext, int mRowLayout,
+                            FavouriteAdapterListener listener, RecyclerView recyclerView) {
         this.mContext = mContext;
-        this.mFavourites = mFavourites;
+        this.mFavourites = new ArrayList<>();
         this.mRowLayout = mRowLayout;
         this.mListener = listener;
+    }
+
+    public void setList(List<User> favouritesList) {
+        mFavourites.addAll(favouritesList);
+        notifyDataSetChanged();
+    }
+
+    private void clearList() {
+        mFavourites.clear();
+        notifyDataSetChanged();
     }
 
     public class DeveloperViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
@@ -71,16 +83,18 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Deve
 
     @Override
     public void onBindViewHolder(@NonNull final DeveloperViewHolder holder, final int position) {
-        holder.mUserName.setText(mFavourites.get(position).getLogin());
-        Glide.with(mContext)
-                .load(mFavourites.get(position).getAvatarUrl())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(getRandomMaterialColor())
-                .crossFade()
-                .thumbnail(0.5f)
-                .into(holder.mUserProfilePic);
-        applyClickEvents(holder, position);
-        applyFavourite(holder);
+        if (mFavourites != null) {
+            holder.mUserName.setText(mFavourites.get(position).getLogin());
+            Glide.with(mContext)
+                    .load(mFavourites.get(position).getAvatarUrl())
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(getRandomMaterialColor())
+                    .crossFade()
+                    .thumbnail(0.5f)
+                    .into(holder.mUserProfilePic);
+            applyClickEvents(holder, position);
+            applyFavourite(holder);
+        }
     }
 
 

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.gravity.devxplore.R;
 import com.example.gravity.devxplore.data.model.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,16 +23,27 @@ import java.util.List;
 
 public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoViewHolder> {
 
-    private final Context mContext;
-    private final List<Repository> mRepositories;
-    private final int mRowLayout;
-    private final RepoAdapterListener mListener;
+    private  Context mContext;
+    private  List<Repository> mRepositories;
+    private  int mRowLayout;
+    private  RepoAdapterListener mListener;
 
-    public RepoAdapter(Context context, List<Repository> repositories, RepoAdapterListener listener) {
+    public RepoAdapter(Context context, RepoAdapterListener listener, RecyclerView recyclerView) {
         this.mContext = context;
-        this.mRepositories = repositories;
+        this.mRepositories = new ArrayList<>();
         this.mRowLayout = R.layout.list_item_repo;
         this.mListener = listener;
+    }
+
+    public void setList(List<Repository> repositoryList) {
+        clearList();
+        mRepositories.addAll(repositoryList);
+        notifyDataSetChanged();
+    }
+
+    private void clearList() {
+        mRepositories.clear();
+        notifyDataSetChanged();
     }
 
     public class RepoViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {

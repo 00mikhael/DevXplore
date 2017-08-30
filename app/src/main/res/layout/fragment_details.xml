@@ -66,7 +66,7 @@
                         android:ellipsize="end"
                         android:gravity="center"
                         android:maxLines="1"
-                        android:text="@string/username"
+                        android:text="@string/mCurrentUser"
                         android:textColor="?textColorSub"
                         android:textSize="16sp" />
 
@@ -298,7 +298,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="@string/username"
+                android:text="@string/mCurrentUser"
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
                 android:visibility="invisible"

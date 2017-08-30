@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_gravity="bottom"
+        android:layout_height="?actionBarSize"
         android:background="?colorPrimary"
         android:paddingEnd="16dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:paddingStart="16dp"
-        app:elevation="4dp">
+        android:paddingStart="16dp">
 
         <android.support.v7.widget.CardView
+            android:id="@+id/button_card"
             style="@style/ButtonStyle"
             android:layout_width="100dp"
             android:layout_height="40dp"
@@ -27,9 +27,9 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
-            app:cardElevation="0dp"
             app:cardBackgroundColor="?colorAccent"
-            app:cardCornerRadius="2dp">
+            app:cardCornerRadius="2dp"
+            app:cardElevation="2dp">
 
             <TextView
                 android:id="@+id/find_button"
@@ -39,10 +39,11 @@
                 android:text="@string/find"
                 android:textAllCaps="false"
                 android:textColor="?textColorMain"
-                android:textSize="20sp" />
+                android:textSize="20sp"/>
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
+            android:id="@+id/edit_card"
             android:layout_width="160dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
@@ -51,7 +52,7 @@
             android:focusable="true"
             app:cardBackgroundColor="@android:color/transparent"
             app:cardCornerRadius="2dp"
-            app:cardElevation="0dp">
+            app:cardElevation="2dp">
 
             <EditText
                 android:id="@+id/location_edit_text"
@@ -62,8 +63,70 @@
                 android:drawablePadding="4dp"
                 android:drawableStart="@drawable/ic_location"
                 android:hint="@string/location"
-                android:maxEms="1"
                 android:inputType="textCapWords"
+                android:maxEms="1"
+                android:maxLines="1"
+                android:paddingEnd="4dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingStart="4dp"
+                android:textStyle="normal" />
+        </android.support.v7.widget.CardView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="?colorPrimary"
+        android:paddingEnd="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingStart="16dp">
+
+        <android.support.v7.widget.CardView
+            style="@style/ButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_toEndOf="@id/language_card"
+            android:layout_toRightOf="@id/language_card"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="2dp"
+            app:cardElevation="2dp">
+
+            <Spinner
+                android:id="@+id/language_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/scrim"/>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/language_card"
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="2dp"
+            app:cardElevation="2dp">
+
+            <EditText
+                android:id="@+id/language_edit_text"
+                style="@style/EditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawableLeft="@drawable/ic_filter"
+                android:drawablePadding="4dp"
+                android:drawableStart="@drawable/ic_filter"
+                android:hint="@string/language"
+                android:inputType="textCapWords"
+                android:maxEms="1"
                 android:maxLines="1"
                 android:paddingEnd="4dp"
                 android:paddingLeft="4dp"

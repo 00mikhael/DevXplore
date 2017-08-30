@@ -13,23 +13,19 @@ import com.google.gson.annotations.SerializedName;
  */
 @Entity(tableName = "details", foreignKeys = {
         @ForeignKey(entity = User.class,
-                    parentColumns = "login",
-                    childColumns = "login",
-                    onDelete = ForeignKey.CASCADE,
-                    onUpdate = ForeignKey.CASCADE),
-        @ForeignKey(entity = User.class,
                     parentColumns = "is_favourite",
                     childColumns = "is_favourite",
                     onDelete = ForeignKey.CASCADE,
                     onUpdate = ForeignKey.CASCADE)},
-        indices = {@Index(value = {"login"}, unique = true)
+        indices = {@Index(value = {"is_favourite"}, unique = true)
 })
 public class UserDetails {
     @PrimaryKey
     @ColumnInfo(name = "login")
     @SerializedName("login")
     private String login;
-
+    @SerializedName("id")
+    private int id;
     @ColumnInfo(name = "fullname")
     @SerializedName("name")
     private String name;
@@ -94,6 +90,14 @@ public class UserDetails {
 
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getLogin() {
         return login;
     }
@@ -146,8 +150,9 @@ public class UserDetails {
         this.bio = bio;
     }
 
-    public UserDetails(String login, String name, String avatarUrl, String htmlUrl, int repos, int followers, int following, String location, String bio, boolean isFavourite) {
+    public UserDetails(String login,int id, String name, String avatarUrl, String htmlUrl, int repos, int followers, int following, String location, String bio, boolean isFavourite) {
         this.login = login;
+        this.id = id;
         this.name = name;
         this.avatarUrl = avatarUrl;
         this.htmlUrl = htmlUrl;

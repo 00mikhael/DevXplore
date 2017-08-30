@@ -49,7 +49,7 @@
                 android:maxLines="1"
                 android:textColor="?textColorMain"
                 android:textSize="14sp"
-                tools:text="@string/username" />
+                tools:text="@string/mCurrentUser" />
 
             <ImageView
                 android:id="@+id/user_favourite"

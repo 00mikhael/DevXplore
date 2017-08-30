@@ -1,13 +1,16 @@
 package com.example.gravity.devxplore.view.ui.details;
 
-import android.app.LoaderManager;
+import android.arch.lifecycle.LifecycleRegistry;
+import android.arch.lifecycle.LifecycleRegistryOwner;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
-import android.content.Loader;
-import android.database.Cursor;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
@@ -16,7 +19,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,33 +29,29 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.gravity.devxplore.Injection;
 import com.example.gravity.devxplore.R;
-import com.example.gravity.devxplore.view.adapters.FragmentPager;
 import com.example.gravity.devxplore.data.model.UserDetails;
+import com.example.gravity.devxplore.utilities.BasicUtil;
+import com.example.gravity.devxplore.utilities.ThemeUtil;
+import com.example.gravity.devxplore.view.adapters.FragmentPager;
 import com.example.gravity.devxplore.view.ui.details.followers.FollowersFragment;
 import com.example.gravity.devxplore.view.ui.details.following.FollowingFragment;
 import com.example.gravity.devxplore.view.ui.details.overview.OverviewFragment;
 import com.example.gravity.devxplore.view.ui.details.repos.ReposFragment;
 import com.example.gravity.devxplore.view.ui.details.starred.StarredFragment;
-import com.example.gravity.devxplore.utilities.Util;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
 
 /**
  * Created by gravity on 7/2/17.
  */
 
 @SuppressWarnings("ALL")
-public class DetailsActivity extends AppCompatActivity implements DetailsContract.MainDetailView,
-        View.OnClickListener, AppBarLayout.OnOffsetChangedListener, LoaderManager.LoaderCallbacks<Cursor> {
+public class DetailsActivity extends AppCompatActivity implements LifecycleRegistryOwner, View.OnClickListener, AppBarLayout.OnOffsetChangedListener {
+    private final static String USERNAME = "username";
+    private final static String TAG = "DETAILS";
 
-    public final static String USERNAME = "";
-    public final static String TAG = "DETAILS";
-
-    private DetailsContract.Presenter mPresenter;
     private AppBarLayout mAppBarLayout;
     private CircleImageView mAvatarImageView;
     private TextView mCollapsedUserName, mFullName, mUsername;
@@ -67,11 +65,16 @@ public class DetailsActivity extends AppCompatActivity implements DetailsContrac
     private LinearLayout mContainerFollowing, mContainerFollowers, mContainerRepos;
     private TextView mFollowingCount, mFollowersCount, mReposCount;
     private ImageView mGithubLink;
-    /*private String userBio;*/
     private String username;
-    FragmentPager mAdapter;
+    private FragmentPager mAdapter;
+    private DetailsViewModel mViewModel;
 
+    private final LifecycleRegistry lifecycleRegistry = new LifecycleRegistry(this);
 
+    @Override
+    public LifecycleRegistry getLifecycle() {
+        return lifecycleRegistry;
+    }
 
     @NonNull
     public static Intent createIntent(Context context, String username) {
@@ -81,24 +84,24 @@ public class DetailsActivity extends AppCompatActivity implements DetailsContrac
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ThemeUtil.onActivityCreateSetTheme(this);
         setContentView(R.layout.fragment_details);
 
-        findViews();
-        setUpToolbar();
-
-        mNestedScrollView.setFillViewport(true);
-
-        DetailsPresenter mUserDetailsPresenter = new DetailsPresenter(Injection.provideDataManager(getApplicationContext()), this);
+        mViewModel = ViewModelProviders.of(this).get(DetailsViewModel.class);
         username = getIntent().getStringExtra(USERNAME);
-        mPresenter.loadUserDetails(username);
-        setUpFragments();
+        mViewModel.setCurrentUser(username);
+
+        findViews();
+        setUpViews();
+
+        mViewModel.getUserDetails().observe(this, new Observer<UserDetails>() {
+            @Override
+            public void onChanged(@Nullable UserDetails user) {
+                showUserDetails(user);
+            }
+        });
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         mAdapter = new FragmentPager(fragmentManager);
@@ -111,8 +114,36 @@ public class DetailsActivity extends AppCompatActivity implements DetailsContrac
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setViewPager(mViewPager);
 
-        mAppBarLayout.addOnOffsetChangedListener(this);
+    }
 
+    private void findViews() {
+        mAppBarLayout = (AppBarLayout) findViewById(R.id.details_app_bar);
+        mAvatarImageView = (CircleImageView) findViewById(R.id.details_profile_image);
+        mCollapsedUserName = (TextView) findViewById(R.id.details_username_collapsed);
+        mFullName = (TextView) findViewById(R.id.details_fullname);
+        mUsername = (TextView) findViewById(R.id.details_username);
+        mTabLayout = (SmartTabLayout) findViewById(R.id.details_tab);
+        mViewPager = (ViewPager) findViewById(R.id.details_viewpager);
+        mToolBar = (Toolbar) findViewById(R.id.details_toolbar);
+        mDetailsContainer = (LinearLayout) findViewById(R.id.details_container);
+        mFab = (FloatingActionButton) findViewById(R.id.details_fab);
+        mNestedScrollView = (NestedScrollView) findViewById(R.id.details_nested_scrollview);
+        mContainerFollowing = (LinearLayout) findViewById(R.id.details_following_container);
+        mContainerFollowers = (LinearLayout) findViewById(R.id.details_followers_container);
+        mContainerRepos = (LinearLayout) findViewById(R.id.details_repos_container);
+        mFollowingCount = (TextView) findViewById(R.id.following_count);
+        mFollowersCount = (TextView) findViewById(R.id.followers_count);
+        mReposCount = (TextView) findViewById(R.id.repos_count);
+        mGithubLink = (ImageView) findViewById(R.id.details_github_link);
+    }
+
+    private void setUpViews() {
+        setSupportActionBar(mToolBar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("");
+        }
+        mNestedScrollView.setFillViewport(true);
+        mAppBarLayout.addOnOffsetChangedListener(this);
         mFab.setOnClickListener(this);
         mContainerFollowers.setOnClickListener(this);
         mContainerFollowing.setOnClickListener(this);
@@ -120,16 +151,8 @@ public class DetailsActivity extends AppCompatActivity implements DetailsContrac
         mGithubLink.setOnClickListener(this);
     }
 
-    public void setUpFragments() {
-
-    }
-
-    @Override
     public void showUserDetails(@NonNull UserDetails user) {
         this.mUser = user;
-        /*userBio = user.getBio();*/
-
-
         if (user.getLogin() == null) {
             Toast.makeText(this, "No Username", Toast.LENGTH_SHORT).show();
         }else {
@@ -155,8 +178,6 @@ public class DetailsActivity extends AppCompatActivity implements DetailsContrac
         int following = user.getFollowing();
         int repos = user.getRepos();
 
-        Log.e(TAG, "followers: "+followers+"\nfollowing: "+following+"\nrepos: "+repos);
-
         mFollowersCount.setText(""+followers+"");
         mFollowingCount.setText(""+following+"");
         mReposCount.setText(""+repos+"");
@@ -171,50 +192,24 @@ public class DetailsActivity extends AppCompatActivity implements DetailsContrac
                 startActivity(intent);
                 break;
             case R.id.details_followers_container:
-                mTabLayout.getTabAt(4);
+                mTabLayout.getTabAt(4).setSelected(true);
                 break;
             case R.id.details_following_container:
-                mTabLayout.getTabAt(3);
+                mTabLayout.getTabAt(3).setSelected(true);
                 break;
             case R.id.details_repos_container:
-                mTabLayout.getTabAt(1);
+                mTabLayout.getTabAt(1).setSelected(true);
                 break;
             case R.id.details_github_link:
-                Toast.makeText(this, "github", Toast.LENGTH_SHORT).show();
+                String url = mUser.getHtmlUrl();
+                openInBrowser(url);
                 break;
         }
 
     }
 
-    @Override
-    public void setPresenter(DetailsContract.Presenter presenter) {
-        this.mPresenter = presenter;
-    }
-
-    @Override
     public void showLoadingIndicator(boolean isLoading) {
 
-    }
-
-    private void findViews() {
-        mAppBarLayout = (AppBarLayout) findViewById(R.id.details_app_bar);
-        mAvatarImageView = (CircleImageView) findViewById(R.id.details_profile_image);
-        mCollapsedUserName = (TextView) findViewById(R.id.details_username_collapsed);
-        mFullName = (TextView) findViewById(R.id.details_fullname);
-        mUsername = (TextView) findViewById(R.id.details_username);
-        mTabLayout = (SmartTabLayout) findViewById(R.id.details_tab);
-        mViewPager = (ViewPager) findViewById(R.id.details_viewpager);
-        mToolBar = (Toolbar) findViewById(R.id.details_toolbar);
-        mDetailsContainer = (LinearLayout) findViewById(R.id.details_container);
-        mFab = (FloatingActionButton) findViewById(R.id.details_fab);
-        mNestedScrollView = (NestedScrollView) findViewById(R.id.details_nested_scrollview);
-        mContainerFollowing = (LinearLayout) findViewById(R.id.details_following_container);
-        mContainerFollowers = (LinearLayout) findViewById(R.id.details_followers_container);
-        mContainerRepos = (LinearLayout) findViewById(R.id.details_repos_container);
-        mFollowingCount = (TextView) findViewById(R.id.following_count);
-        mFollowersCount = (TextView) findViewById(R.id.followers_count);
-        mReposCount = (TextView) findViewById(R.id.repos_count);
-        mGithubLink = (ImageView) findViewById(R.id.details_github_link);
     }
 
     private Intent createShareForecastIntent() {
@@ -227,20 +222,13 @@ public class DetailsActivity extends AppCompatActivity implements DetailsContrac
         return  shareIntent;
     }
 
-    private void setUpToolbar() {
-        setSupportActionBar(mToolBar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("");
-        }
-    }
-
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
         int maxScroll = appBarLayout.getTotalScrollRange();
         float percentage = (float) Math.abs(offset) / (float) maxScroll;
 
-        Util.handleAlphaOnTitle(percentage, mDetailsContainer);
-        Util.handleToolbarTitleVisibility(percentage, mCollapsedUserName);
+        BasicUtil.handleAlphaOnTitle(percentage, mDetailsContainer);
+        BasicUtil.handleToolbarTitleVisibility(percentage, mCollapsedUserName);
     }
 
     @Override
@@ -271,18 +259,10 @@ public class DetailsActivity extends AppCompatActivity implements DetailsContrac
         }
     }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        return null;
+    private void openInBrowser(String url) {
+        Uri uri = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
     }
 
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-
-    }
 }

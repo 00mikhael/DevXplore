@@ -5,7 +5,7 @@
     <string name="action_settings">Settings</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula sem a malesuada rhoncus. </string>
     <string name="fullname">Fullname</string>
-    <string name="username">Username</string>
+    <string name="mCurrentUser">Username</string>
     <string name="bio">Bio</string>
     <string name="user_github_link">User Github Link</string>
     <string name="user_email_link">User Email Link</string>
@@ -48,5 +48,11 @@
     <string name="following">following</string>
     <string name="followers">followers</string>
     <string name="repos">repos</string>
+    <string name="input_or_select_language">input or select language</string>
+    <string name="language">Language</string>
+    <string name="no_notifications">no notifications</string>
+    <string name="andela">https://andela.com/about-us/</string>
+    <string name="get_started">Get Started</string>
+    <string name="transition">profile_header</string>
 
 </resources>

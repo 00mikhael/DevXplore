@@ -9,6 +9,8 @@
         <item name="android:windowAllowReturnTransitionOverlap">true</item>
         <item name="android:windowSharedElementEnterTransition">@android:transition/move</item>
         <item name="android:windowSharedElementExitTransition">@android:transition/move</item>
+        <item name="android:windowEnterTransition">@android:transition/slide_right</item>
+        <item name="android:windowExitTransition">@android:transition/fade</item>
     </style>
 
     <style name="AppTheme.Light" parent="AppTheme">
@@ -26,6 +28,7 @@
         <item name="location_color">@color/location_color_Light</item>
         <item name="ripple_color_fav">@color/colorAccent</item>
         <item name="ripple_color">@color/colorAccent</item>
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
     </style>
 
     <style name="AppTheme.Dark" parent="AppTheme">
@@ -43,6 +46,7 @@
         <item name="location_color">@color/location_color_Dark</item>
         <item name="ripple_color">@color/colorAccent</item>
         <item name="ripple_color_fav">@color/colorAccent</item>
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
     </style>
 
     <style name="OverFlow" parent="@style/Widget.AppCompat.Light.ActionButton.Overflow">
@@ -51,6 +55,12 @@
 
     <style name="EditTextStyle">
         <item name="android:background">?colorPrimaryDark</item>
+        <item name="android:textColor">?textColorMain</item>
+        <item name="android:textColorHint">?textColorSub</item>
+    </style>
+
+    <style name="ExpandedLayout">
+        <item name="android:background">?colorPrimary</item>
         <item name="android:textColor">?textColorMain</item>
         <item name="android:textColorHint">?textColorSub</item>
     </style>

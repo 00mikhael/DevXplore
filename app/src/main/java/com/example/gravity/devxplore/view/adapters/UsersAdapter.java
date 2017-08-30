@@ -20,6 +20,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.gravity.devxplore.R;
 import com.example.gravity.devxplore.data.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -29,16 +30,27 @@ import java.util.Random;
 
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.DeveloperViewHolder> {
 
-    private final Context mContext;
-    private final List<User> mUsers;
-    private final int mRowLayout;
-    private final UserAdapterListener mListener;
+    private  Context mContext;
+    private  List<User> mUsers;
+    private  int mRowLayout;
+    private  UserAdapterListener mListener;
 
-    public UsersAdapter(Context mContext, List<User> mUsers, int mRowLayout, UserAdapterListener listener) {
+    public UsersAdapter(Context mContext, int mRowLayout, UserAdapterListener listener, RecyclerView recyclerView) {
         this.mContext = mContext;
-        this.mUsers = mUsers;
+        this.mUsers = new ArrayList<>();
         this.mRowLayout = mRowLayout;
         this.mListener = listener;
+    }
+
+    public void setList(List<User> userList) {
+        clearList();
+        mUsers.addAll(userList);
+        notifyDataSetChanged();
+    }
+
+    private void clearList() {
+        mUsers.clear();
+        notifyDataSetChanged();
     }
 
     public class DeveloperViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
@@ -74,16 +86,18 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.DeveloperVie
 
     @Override
     public void onBindViewHolder(@NonNull final DeveloperViewHolder holder, final int position) {
-        holder.mUserName.setText(mUsers.get(position).getLogin());
-        Glide.with(mContext)
-                .load(mUsers.get(position).getAvatarUrl())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.color.colorAccent)
-                .crossFade()
-                .thumbnail(0.5f)
-                .into(holder.mUserProfilePic);
-        applyClickEvents(holder, position);
-        applyFavourite(holder, position);
+        if (mUsers != null) {
+            holder.mUserName.setText(mUsers.get(position).getLogin());
+            Glide.with(mContext)
+                    .load(mUsers.get(position).getAvatarUrl())
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.color.colorAccent)
+                    .crossFade()
+                    .thumbnail(0.5f)
+                    .into(holder.mUserProfilePic);
+            applyClickEvents(holder, position);
+            applyFavourite(holder, position);
+        }
     }
 
 
@@ -108,7 +122,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.DeveloperVie
         holder.mContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onCardClicked(position);
+                mListener.onCardClicked(position, holder.mUserProfilePic);
             }
         });
     }
@@ -155,7 +169,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.DeveloperVie
     }
 
     public interface UserAdapterListener {
-        void onCardClicked(int position);
+        void onCardClicked(int position, View v);
 
         void onCardLongClicked(int position);
 

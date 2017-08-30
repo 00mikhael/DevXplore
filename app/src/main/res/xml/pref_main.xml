@@ -46,7 +46,12 @@
 
         <Preference
             android:summary="Andela, Google and Udacity"
-            android:title="Proud sponsors" />
+            android:title="Proud sponsors" >
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="@string/andela" />
+
+        </Preference>
 
         <Preference
             android:key="@string/key_send_feedback"

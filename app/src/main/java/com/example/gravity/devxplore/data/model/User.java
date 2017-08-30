@@ -11,13 +11,15 @@ import com.google.gson.annotations.SerializedName;
  * Created by gravity on 7/4/17.
  */
 @Entity(tableName = "users",
-        indices = {@Index(value = {"login"}, unique = true)})
-
+        indices = {@Index(value = {"is_favourite"}, unique = true)})
 public class User {
     @PrimaryKey
     @ColumnInfo(name = "login")
     @SerializedName("login")
     private String login;
+
+    @SerializedName("id")
+    private int id;
 
     @ColumnInfo(name = "avatar_url")
     @SerializedName("avatar_url")
@@ -30,6 +32,15 @@ public class User {
     public String getLogin() {
         return login;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getAvatarUrl() {
         return avatarUrl;
     }
@@ -50,8 +61,9 @@ public class User {
         isFavourite = favourite;
     }
 
-    public User(String login, String avatarUrl, boolean isFavourite) {
+    public User(String login,int id, String avatarUrl, boolean isFavourite) {
         this.login = login;
+        this.id = id;
         this.avatarUrl = avatarUrl;
         this.isFavourite = isFavourite;
     }

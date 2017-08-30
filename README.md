@@ -4,11 +4,11 @@ A simple github client to browse github users and repositories based on language
 
 ## Screenhots
 
-| three | four |
+| one | two |
 |:-:|:-:|
 | ![Three](/art/4.png?raw=true) | ![Four](/art/5.png?raw=true) |
 
-| one | two |
+| three | four |
 |:-:|:-:|
 | ![One](/art/2.png?raw=true) | ![Two](/art/3.png?raw=true) |
 

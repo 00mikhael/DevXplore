@@ -42,7 +42,7 @@
 
         <Preference
             android:selectable="false"
-            android:summary="@string/summary_about" />
+            android:summary="@string/lorem" />
 
         <Preference
             android:summary="Andela, Google and Udacity"

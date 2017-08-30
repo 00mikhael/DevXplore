@@ -308,6 +308,19 @@
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent">
+        <ProgressBar
+            android:id="@+id/details_progress_bar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/details_profile_image"
         android:layout_width="@dimen/image_width"

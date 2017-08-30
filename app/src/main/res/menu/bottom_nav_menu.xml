@@ -6,20 +6,20 @@
         android:enabled="true"
         android:icon="@drawable/ic_explore"
         android:orderInCategory="100"
-        android:title="explore"
+        android:title="@string/explore"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/nav_fav"
         android:enabled="true"
         android:icon="@drawable/ic_heart"
         android:orderInCategory="200"
-        android:title="favorites"
+        android:title="@string/favorites"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/nav_stats"
         android:enabled="true"
         android:icon="@drawable/ic_stats"
         android:orderInCategory="300"
-        android:title="stats"
+        android:title="@string/stats"
         app:showAsAction="ifRoom"/>
 </menu>

@@ -321,7 +321,18 @@
         app:finalToolbarHeight="?attr/actionBarSize"
         app:layout_behavior="com.example.gravity.devxplore.utilities.AvatarImageBehavior"
         />
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent">
+        <ProgressBar
+            android:id="@+id/details_progress_bar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/details_fab"
         android:layout_width="wrap_content"

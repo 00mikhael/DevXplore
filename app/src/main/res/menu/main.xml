@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_notification"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/notifications"
         android:icon="@drawable/ic_ring_outline"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/action_search"
         android:orderInCategory="200"
-        android:title="search"
+        android:title="@string/search"
         android:icon="@drawable/ic_search"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction" />
 
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="300"
         android:title="@string/action_settings"
         android:icon="@drawable/ic_settings"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="400"
+        android:title="@string/logout"
+        android:icon="@drawable/ic_profile"
         app:showAsAction="never" />
 </menu>

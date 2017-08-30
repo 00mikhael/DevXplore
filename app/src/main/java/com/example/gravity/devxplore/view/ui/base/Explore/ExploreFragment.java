@@ -1,12 +1,10 @@
 package com.example.gravity.devxplore.view.ui.base.Explore;
 
-import android.app.ActivityOptions;
 import android.arch.lifecycle.LifecycleRegistry;
 import android.arch.lifecycle.LifecycleRegistryOwner;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,9 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +27,6 @@ import com.example.gravity.devxplore.R;
 import com.example.gravity.devxplore.data.model.User;
 import com.example.gravity.devxplore.utilities.BasicUtil;
 import com.example.gravity.devxplore.utilities.GridSpacingItemDecoration;
-import com.example.gravity.devxplore.view.adapters.CustomAdapter;
 import com.example.gravity.devxplore.view.adapters.UsersAdapter;
 import com.example.gravity.devxplore.view.ui.base.BaseViewModel;
 import com.example.gravity.devxplore.view.ui.details.DetailsActivity;
@@ -49,19 +45,15 @@ public class ExploreFragment extends Fragment implements LifecycleRegistryOwner,
 
     private final LifecycleRegistry lifecycleRegistry = new LifecycleRegistry(this);
 
-    private String mLocation;
-    private String mLanguage;
-
     private BaseViewModel mViewModel;
     private GridLayoutManager mLayoutManager;
     private UsersAdapter mAdapter;
-    private CustomAdapter mSpinnerAdapter;
     private EditText mLocationInput;
     private TextView mFindButton;
-    private Spinner mSpinner;
     private EditText mLanguageInput;
     private List<User> mUsers;
     private RecyclerView mRecyclerView;
+    private ProgressBar mProgressBar;
     private ArrayList<String> mLanguages = new ArrayList<>();
 
     @NonNull
@@ -74,29 +66,20 @@ public class ExploreFragment extends Fragment implements LifecycleRegistryOwner,
         return lifecycleRegistry;
     }
 
-
-    private void setLocation(String location) {
-        this.mLocation = mLocation;
-    }
-
-    private void setLanguage(String language) {
-        this.mLanguage = mLanguage;
-    }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              final Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_explore, container, false);
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         mLanguages.add("java");
         mViewModel = ViewModelProviders.of(this).get(BaseViewModel.class);
         mFindButton = (TextView) view.findViewById(R.id.find_button);
         mLocationInput = (EditText) view.findViewById(R.id.location_edit_text);
         mLanguageInput = (EditText) view.findViewById(R.id.language_edit_text);
-        mSpinner = (Spinner) view.findViewById(R.id.language_spinner);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.home_recycler_view);
-
+        mProgressBar = (ProgressBar) view.findViewById(R.id.home_progress_bar);
+        mProgressBar.setVisibility(View.GONE);
         return view;
     }
 
@@ -104,6 +87,7 @@ public class ExploreFragment extends Fragment implements LifecycleRegistryOwner,
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mViewModel.refresh();
+        mProgressBar.setVisibility(View.VISIBLE);
         setupView();
     }
 
@@ -114,34 +98,12 @@ public class ExploreFragment extends Fragment implements LifecycleRegistryOwner,
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mAdapter = new UsersAdapter(getActivity(), R.layout.list_item_user_grid, this, mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
-        mSpinnerAdapter = new CustomAdapter(getActivity(), mLanguages);
-        mSpinner.setAdapter(mSpinnerAdapter);
         mFindButton.setOnClickListener(this);
-        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (adapterView.getItemAtPosition(i) != null) {
-                    String language = adapterView.getItemAtPosition(i).toString();
-                    if (language != null) {
-                        setLanguage(language);
-                    }
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
         mViewModel.getSearchResult().observe(this, users -> {
-            this.mUsers = users;
+            mProgressBar.setVisibility(View.GONE);
+            ExploreFragment.this.mUsers = users;
             mAdapter.setList(users);
         });
-    }
-
-    private void showLoadingIndicator(boolean isLoading) {
-
     }
 
     @Override
@@ -150,14 +112,7 @@ public class ExploreFragment extends Fragment implements LifecycleRegistryOwner,
         User user = mUsers.get(position);
         String username = user.getLogin();
         Intent intent = DetailsActivity.createIntent(getActivity(), username);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            String transitionName = getString(R.string.transition);
-            ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(getActivity(), v, transitionName);
-            startActivity(intent, transitionActivityOptions.toBundle());
-        }else {
-            startActivity(intent);
-        }
+        startActivity(intent);
     }
 
     @Override
@@ -172,7 +127,7 @@ public class ExploreFragment extends Fragment implements LifecycleRegistryOwner,
         String username = user.getLogin();
         boolean favourite = user.isFavourite();
         favourite = !favourite;
-        mViewModel.setFavourite(username, favourite);
+        /*mViewModel.setFavourite(username, favourite);*/
     }
 
     private void hideSoftInputPanel(View v) {
@@ -200,11 +155,11 @@ public class ExploreFragment extends Fragment implements LifecycleRegistryOwner,
             case R.id.find_button:
                 hideSoftInputPanel(mLocationInput);
                 hideSoftInputPanel(mLanguageInput);
+
                 String location = mLocationInput.getText().toString().toLowerCase().trim();
                 String language = mLanguageInput.getText().toString().toLowerCase().trim();
                 Log.e(TAG, location+" "+language);
 
-                mSpinnerAdapter.addLanguage(language);
                 String query = "location:" + location + "+language:" + language;
                 search(query);
                 Toast.makeText(getActivity(), query, Toast.LENGTH_SHORT).show();

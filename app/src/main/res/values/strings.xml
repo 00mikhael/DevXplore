@@ -12,24 +12,11 @@
     <string name="location">Location</string>
     <string name="find">Find</string>
     <string name="popular_repositories">Popular Repositories</string>
-
-    <string-array name="fragment_titles">
-        <item>Explore</item>
-        <item>Favourites</item>
-        <item>Statistics</item>
-        <item>Profile</item>
-        <item>Notifications</item>
-        <item>About</item>
-        <item>Sponsor</item>
-    </string-array>
-
     <string name="pref_ringtone_silent">Silent</string>
     <string name="choose_theme">Choose Theme</string>
     <string name="pref_title_notifications">Notifications</string>
     <string name="summary_choose_ringtone">Choose notification sound</string>
     <string name="pref_header_about">About</string>
-    <string name="summary_about">We are a team of like-minded people, specialized in development of Android App Development creating new trends across the app space. Glad to Help in anyway!</string>
-    <string name="app_version">1.0</string>
     <string name="summary_support">Say Hi!</string>
     <string name="title_send_feedback">Send Feedback</string>
     <string name="title_version">Version</string>
@@ -48,11 +35,36 @@
     <string name="following">following</string>
     <string name="followers">followers</string>
     <string name="repos">repos</string>
-    <string name="input_or_select_language">input or select language</string>
     <string name="language">Language</string>
     <string name="no_notifications">no notifications</string>
     <string name="andela">https://andela.com/about-us/</string>
     <string name="get_started">Get Started</string>
     <string name="transition">profile_header</string>
+    <string name="name">M.C Nwankwo</string>
+    <string name="owner_login">zirogravity</string>
+    <string name="owner_image">https://avatars2.githubusercontent.com/u/26689508?v=4</string>
+    <string name="logout">logout</string>
+    <string name="about_sponsor">About Sponsor</string>
+    <string name="project_info">Project Info</string>
+    <string name="theme">Theme</string>
+    <string name="notifications">Notifications</string>
+    <string name="profile">Profile</string>
+    <string name="home">Home</string>
+    <string name="search">search</string>
+    <string name="explore">explore</string>
+    <string name="favorites">favorites</string>
+    <string name="stats">stats</string>
+    <string name="find_developers_anywhere">find developers anywhere</string>
+    <string name="statistics">Statistics</string>
+    <string name="app_version">1.9</string>
+    <string-array name="fragment_titles">
+        <item>Explore</item>
+        <item>Favourites</item>
+        <item>Statistics</item>
+        <item>Profile</item>
+        <item>Notifications</item>
+        <item>About</item>
+        <item>Sponsor</item>
+    </string-array>
 
 </resources>

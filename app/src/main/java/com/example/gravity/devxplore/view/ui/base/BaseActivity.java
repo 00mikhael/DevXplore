@@ -26,15 +26,14 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.gravity.devxplore.R;
-import com.example.gravity.devxplore.application.AboutActivity;
 import com.example.gravity.devxplore.application.App;
 import com.example.gravity.devxplore.application.SettingsPrefActivity;
 import com.example.gravity.devxplore.utilities.BasicUtil;
 import com.example.gravity.devxplore.utilities.ThemeUtil;
-import com.example.gravity.devxplore.view.ui.base.notification.NotificationFragment;
 import com.example.gravity.devxplore.view.ui.authentication.AuthActivity;
 import com.example.gravity.devxplore.view.ui.base.Explore.ExploreFragment;
 import com.example.gravity.devxplore.view.ui.base.favourites.FavouritesFragment;
+import com.example.gravity.devxplore.view.ui.base.notification.NotificationFragment;
 import com.example.gravity.devxplore.view.ui.base.statistics.StatsFragment;
 import com.example.gravity.devxplore.view.ui.details.DetailsActivity;
 
@@ -52,9 +51,6 @@ public class BaseActivity extends AppCompatActivity implements LifecycleRegistry
 
     private String[] FragmentTitles;
     private int navItemIndex = 0;
-
-
-    private static final String urlProfileImg = "https://lh3.googleusercontent.com/eCtE_G34M9ygdkmOpYvCag1vBARCmZwnVS6rS5t4JLzJ6QgQSBquM0nuTsCpLhYbKljoyS-txg";
 
     private final LifecycleRegistry lifecycleRegistry = new LifecycleRegistry(this);
 
@@ -130,10 +126,10 @@ public class BaseActivity extends AppCompatActivity implements LifecycleRegistry
     }
 
     private void loadNavHeader() {
-        mFullName.setText("M.C Nwankwo");
-        mUsername.setText("zirogravity");
+        mFullName.setText(R.string.name);
+        mUsername.setText(R.string.owner_login);
 
-        Glide.with(this).load(urlProfileImg)
+        Glide.with(this).load(getString(R.string.owner_image))
                 .crossFade()
                 .thumbnail(0.5f)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -185,7 +181,7 @@ public class BaseActivity extends AppCompatActivity implements LifecycleRegistry
                     navItemIndex = 0;
                     break;
                 case R.id.nav_profile:
-                    startActivity(DetailsActivity.createIntent(this, "zirogravity"));
+                    startActivity(DetailsActivity.createIntent(this, getResources().getString(R.string.owner_login)));
                     return true;
                 case R.id.nav_notifications:
                     fragment = NotificationFragment.newInstance();
@@ -193,10 +189,6 @@ public class BaseActivity extends AppCompatActivity implements LifecycleRegistry
                     break;
                 case R.id.nav_settings:
                     startActivity(new Intent(BaseActivity.this, SettingsPrefActivity.class));
-                    mDrawerLayout.closeDrawers();
-                    return true;
-                case R.id.nav_about:
-                    startActivity(new Intent(BaseActivity.this, AboutActivity.class));
                     mDrawerLayout.closeDrawers();
                     return true;
                 case R.id.nav_sponsor:

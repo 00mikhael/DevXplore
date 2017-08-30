@@ -14,7 +14,7 @@
         android:layout_width="10dp"
         android:layout_height="10dp"
         android:layout_gravity="center"
-        android:background="@drawable/circle2"/><!--Make sure image is present in Drawable folder-->
+        android:background="@drawable/circle2"/>
 
     <TextView
         android:id="@+id/language_text"

@@ -1,12 +1,10 @@
 package com.example.gravity.devxplore.view.ui.details.following;
 
-import android.app.ActivityOptions;
 import android.arch.lifecycle.LifecycleRegistry;
 import android.arch.lifecycle.LifecycleRegistryOwner;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -88,13 +86,8 @@ public class FollowingFragment extends Fragment implements LifecycleRegistryOwne
         User user = mFollowing.get(position);
         String username = user.getLogin();
         Intent intent = DetailsActivity.createIntent(getActivity(), username);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            String transitionName = getString(R.string.transition);
-            ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(getActivity(), v, transitionName);
-            startActivity(intent, transitionActivityOptions.toBundle());
-        }else {
-            startActivity(intent);
-        }
+        startActivity(intent);
+
     }
 
     @Override

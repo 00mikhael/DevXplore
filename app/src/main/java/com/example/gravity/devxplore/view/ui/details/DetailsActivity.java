@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,6 +67,7 @@ public class DetailsActivity extends AppCompatActivity implements LifecycleRegis
     private TextView mFollowingCount, mFollowersCount, mReposCount;
     private ImageView mGithubLink;
     private String username;
+    private ProgressBar mProgressBar;
     private FragmentPager mAdapter;
     private DetailsViewModel mViewModel;
 
@@ -96,9 +98,12 @@ public class DetailsActivity extends AppCompatActivity implements LifecycleRegis
         findViews();
         setUpViews();
 
+        mProgressBar.setVisibility(View.VISIBLE);
+
         mViewModel.getUserDetails().observe(this, new Observer<UserDetails>() {
             @Override
             public void onChanged(@Nullable UserDetails user) {
+                mProgressBar.setVisibility(View.INVISIBLE);
                 showUserDetails(user);
             }
         });
@@ -135,6 +140,7 @@ public class DetailsActivity extends AppCompatActivity implements LifecycleRegis
         mFollowersCount = (TextView) findViewById(R.id.followers_count);
         mReposCount = (TextView) findViewById(R.id.repos_count);
         mGithubLink = (ImageView) findViewById(R.id.details_github_link);
+        mProgressBar = (ProgressBar) findViewById(R.id.details_progress_bar);
     }
 
     private void setUpViews() {
@@ -254,8 +260,10 @@ public class DetailsActivity extends AppCompatActivity implements LifecycleRegis
         boolean favourite = mUser.isFavourite();
         if (!favourite) {
             item.setIcon(R.drawable.ic_heart_selected);
+            mUser.setFavourite(true);
         } else {
             item.setIcon(R.drawable.ic_heart_outline);
+            mUser.setFavourite(false);
         }
     }
 

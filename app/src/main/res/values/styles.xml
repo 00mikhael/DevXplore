@@ -19,7 +19,9 @@
         <item name="android:textColorSecondary">@color/textColorMain_Light</item>
         <item name="actionOverflowButtonStyle">@style/OverFlow</item>
         <item name="location_color">@color/location_color_Light</item>
-        <item name="ripple_color_fav">@color/red</item>
+        <item name="ripple_color_fav">@color/colorAccent</item>
+        <item name="ripple_color">@color/colorAccent</item>
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
     </style>
 
     <style name="AppTheme.Dark" parent="AppTheme">
@@ -35,8 +37,9 @@
         <item name="icon_color">@color/icon_color_Dark</item>
         <item name="actionOverflowButtonStyle">@style/OverFlow</item>
         <item name="location_color">@color/location_color_Dark</item>
-        <item name="ripple_color">?colorAccent</item>
-        <item name="ripple_color_fav">@color/red</item>
+        <item name="ripple_color">@color/colorAccent</item>
+        <item name="ripple_color_fav">@color/colorAccent</item>
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
     </style>
 
     <style name="OverFlow" parent="@style/Widget.AppCompat.Light.ActionButton.Overflow">
@@ -45,6 +48,12 @@
 
     <style name="EditTextStyle">
         <item name="android:background">?colorPrimaryDark</item>
+        <item name="android:textColor">?textColorMain</item>
+        <item name="android:textColorHint">?textColorSub</item>
+    </style>
+
+    <style name="ExpandedLayout">
+        <item name="android:background">?colorPrimary</item>
         <item name="android:textColor">?textColorMain</item>
         <item name="android:textColorHint">?textColorSub</item>
     </style>

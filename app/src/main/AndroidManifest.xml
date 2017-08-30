@@ -28,9 +28,6 @@
         <activity android:name=".application.SettingsPrefActivity"
             android:parentActivityName=".view.ui.base.BaseActivity"/>
 
-        <activity android:name=".application.AboutActivity"
-            android:parentActivityName=".view.ui.base.BaseActivity"/>
-
     </application>
 
 </manifest>

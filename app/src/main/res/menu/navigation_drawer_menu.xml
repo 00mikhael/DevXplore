@@ -6,41 +6,37 @@
         <item
             android:id="@+id/nav_explore"
             android:icon="@drawable/ic_home_full"
-            android:title="Home" />
+            android:title="@string/home" />
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_profile"
-            android:title="Profile" />
+            android:title="@string/profile" />
 
         <item
             android:id="@+id/nav_notifications"
             android:icon="@drawable/ic_ring"
-            android:title="Notifications" />
+            android:title="@string/notifications" />
 
         <item
             android:id="@+id/nav_themes"
             android:icon="@drawable/ic_theme"
-            android:title="Theme"
+            android:title="@string/theme"
             app:actionLayout="@layout/theme_spinner_layout"/>
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings"
-            android:title="Settings" />
+            android:title="@string/action_settings" />
     </group>
 
-    <item android:title="Project Info">
+    <item android:title="@string/project_info">
         <menu>
             <item
-                android:id="@+id/nav_about"
-                android:title="About App"
-                android:icon="@drawable/ic_explore"/>
-            <item
                 android:id="@+id/nav_sponsor"
-                android:title="About Sponsor"
+                android:title="@string/about_sponsor"
                 android:icon="@drawable/ic_andela"/>
             <item
                 android:id="@+id/nav_logout"
-                android:title="Logout" />
+                android:title="@string/logout" />
         </menu>
     </item>
 

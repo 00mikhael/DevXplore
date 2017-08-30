@@ -1,4 +1,4 @@
-# DevXplore v1.09
+# DevXplore v1.06
 
 A simple github client to browse github users and repositories based on language and location.
 

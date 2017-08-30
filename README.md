@@ -2,9 +2,15 @@
 
 A simple github client to browse github users and repositories based on language and location.
 
-## Preview
+## Screenhots
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+| one | two |
+|:-:|:-:|
+| ![One](/art/2.png?raw=true) | ![Two](/art/3.png?raw=true) |
+
+| three | four |
+|:-:|:-:|
+| ![Three](/art/4.png?raw=true) | ![Four](/art/5.png?raw=true) |
 
 ## Versions
 
@@ -20,5 +26,3 @@ These instructions will get you a copy of the project up and running on your loc
 * Google
 * Udacity
 * #AndelaALC17
-
-
